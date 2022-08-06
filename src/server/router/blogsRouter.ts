@@ -2,13 +2,13 @@ import { createRouter } from "./context";
 import { z } from "zod";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { TRPCError } from "@trpc/server";
-import { prisma } from "../db/client";
 
 export const blogRouter = createRouter()
   .query("getAllBlog", {
     async resolve({ ctx }) {
       return await ctx.prisma.blog.findMany({
         select: {
+          id: true,
           title: true,
           description: true,
           author: true,
@@ -28,7 +28,12 @@ export const blogRouter = createRouter()
       return await ctx.prisma.blog.findUnique({
         where: {
           id: input.blogId,
+          
         },
+        select: {
+          author: true,
+          description: true,
+        }
       });
     },
   })

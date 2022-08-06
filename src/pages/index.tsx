@@ -13,7 +13,7 @@ import {
   InferGetStaticPropsType,
 } from "next";
 
-import BlogGrid from "@/components/BlogGrid";
+import {BlogCard} from "@/components/BlogGrid";
 
 export const getStaticProps = async () => {
   const ssg = createSSGHelpers({
@@ -43,9 +43,15 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <div>
-        <BlogGrid blogs={props.allBlogs}/>
+      
+      <div className="flex flex-wrap">
+      {props.allBlogs.map((curr, index) => {
+         return (<BlogCard blog={curr} key={index} />);
+        })}
       </div>
+        {/* <BlogGrid blogs={props.allBlogs}/> */}
+        
+
     </>
   );
 };

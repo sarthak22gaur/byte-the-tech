@@ -9,7 +9,7 @@ const BlogGrid: React.FC<{
 }> = (props) => {
   {
     return (
-      <div className="flex flex-wrap gap-8 m-4 justify-center items-center my-8">
+      <div className="flex gap-8 flex-wrap">
         {props.blogs.map((curr, index) => {
           return <BlogCard blog={curr} key={index} />;
         })}
@@ -18,15 +18,15 @@ const BlogGrid: React.FC<{
   }
 };
 
-const BlogCard: React.FC<{
+export const BlogCard: React.FC<{
   blog: allBlogsType[number];
 }> = (props) => {
   return (
-    <div className="flex flex-col p-8 bg-blue-900">      
+    <div className="px-6 py-6 md:px-10 md:w-1/3 flex flex-col items-start bg-blue-800">      
       <div>{props.blog.title}</div>
       <div>{props.blog.description}</div>
       <div>{props.blog.author}</div>
-      <Link href="/">Test</Link>
+      <Link href={`/blog/${props.blog.id}`}>Test</Link>
     </div>
   );
 };
