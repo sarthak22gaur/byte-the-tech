@@ -44,7 +44,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       </Head>
       <Navbar />
       
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center gap-12 ">
       {props.allBlogs.map((curr, index) => {
          return (<BlogCard blog={curr} key={index} />);
         })}

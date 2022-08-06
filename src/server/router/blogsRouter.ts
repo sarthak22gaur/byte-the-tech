@@ -27,14 +27,41 @@ export const blogRouter = createRouter()
     async resolve({ input, ctx }) {
       return await ctx.prisma.blog.findUnique({
         where: {
-          id: input.blogId,
-          
+          id: input.blogId,          
         },
         select: {
           author: true,
           description: true,
+          title: true,
+          BlogContent: {
+            select: {
+              content: true,
+              headerImage: true,
+              comments: {
+                select: {
+                  message: true,
+                  userId: true,
+                }
+              }
+            }
+          }
         }
       });
+
+
+    //   return {
+    //     blog: {
+    //     BlogContent: {
+    //         content: 'SOme content',
+    //         headerImage: 'https://storage.googleapis.com/cp_bucket_test/aGmZyh352ILQCpASTYbWnESg1657055053162.jpg',
+    //         comments: {
+    //             message: 'asdefasds',
+    //             userId: 'asdfasu8932ujfas',
+    //         }[],
+    //     }[],
+    //     description: 'This is a random descirption',
+    //     author: 'Sarthak gaur',
+    // } 
     },
   })
   .mutation("createBlog", {
