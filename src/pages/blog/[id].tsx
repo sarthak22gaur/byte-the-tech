@@ -33,12 +33,12 @@ export const getStaticProps = async (
   const id = context.params?.id as string;
   console.log(context);
   const blog = await ssg.fetchQuery("blogs.getSingleBlog", { blogId: id });
-const blogCont = await serialize(blog?.BlogContent[0]?.content ? blog?.BlogContent[0]?.content : 'Not available')
+// const blogCont = await serialize(blog?.BlogContent[0]?.content ? blog?.BlogContent[0]?.content : 'Not available')
   return {
     props: {
       trpcState: ssg.dehydrate(),
       blog,
-      blogCont
+    //   blogCont
     },
     revalidate: 20000,
   };
@@ -85,13 +85,13 @@ const id = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
           </div>
           <div>{props.blog?.title}</div>
           <div>{props.blog?.description}</div>
-          <div className="prose text-justify dark:text-white">
-            {/* <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <div className="prose dark:prose-invert text-justify">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {props.blog?.BlogContent[0]?.content
                 ? props.blog?.BlogContent[0]?.content
                 : "Not available"}
-            </ReactMarkdown> */}
-            <MDXRemote {...props.blogCont}/>
+            </ReactMarkdown>
+            {/* <MDXRemote {...props.blogCont}/> */}
           </div>
           <div>{props.blog?.BlogContent[0]?.comments[0]?.message}</div>
         </div>
