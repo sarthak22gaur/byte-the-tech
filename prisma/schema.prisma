@@ -18,25 +18,35 @@ datasource db {
 }
 
 model Blog {
-  id          String    @id @default(cuid())
-  title       String    @unique
+  id          String        @id @default(cuid())
+  title       String        @unique
   description String
-  content     String    @db.LongText
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @default(now())
-  User        User?     @relation(fields: [userId], references: [id])
+  author      String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now())
+  User        User?         @relation(fields: [userId], references: [id])
   userId      String?
+  BlogContent BlogContent[]
+}
+
+model BlogContent {
+  id          String    @id @default(cuid())
+  headerImage String
+  content     String    @db.LongText
+  Blog        Blog      @relation(fields: [blogId], references: [id])
+  blogId      String
   comments    Comment[]
 }
 
 model Comment {
-  id        String   @id @default(cuid())
-  message   String
-  createdAt DateTime @default(now())
-  Blog      Blog?    @relation(fields: [blogId], references: [id])
-  blogId    String?
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    String?
+  id            String      @id @default(cuid())
+  message       String
+  createdAt     DateTime    @default(now())
+  createdBy     String
+  User          User        @relation(fields: [userId], references: [id])
+  userId        String
+  BlogContent   BlogContent @relation(fields: [blogContentId], references: [id])
+  blogContentId String
 }
 
 // Necessary for Next auth
@@ -72,7 +82,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  role          Role      @default(USER)
+  role          String    @default("USER")
   accounts      Account[]
   sessions      Session[]
   blogs         Blog[]

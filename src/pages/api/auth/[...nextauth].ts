@@ -1,6 +1,7 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
+import EmailProvider from "next-auth/providers/email";
 
 // Prisma adapter for NextAuth, optional and can be removed
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -9,30 +10,40 @@ import { env } from "../../../env/server.mjs";
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
-  
-  callbacks: {
 
-    async session({ session, user }) {
+  callbacks: {
+    async session({ session, user, token }) {
       if (session.user) {
         session.user.id = user.id;
-        session.user.role = user.role;
+        if (user.role !== null) {
+          session.role = user.role;
+        }
       }
-      console.log("session", session);
-
       return session;
     },
   },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
+    EmailProvider({
+      server: {
+        host: env.MAILTRAP_HOST,
+        port: env.MAILTRAP_PORT,
+        auth: {
+          user: env.MAILTRAP_USER,
+          pass: env.MAILTRAP_PASS,
+        },
+      },
+      from: env.MAILTRAP_SENDER,
     }),
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET
-    }),
+    // DiscordProvider({
+    //   clientId: env.DISCORD_CLIENT_ID,
+    //   clientSecret: env.DISCORD_CLIENT_SECRET,
+    // }),
+    // GoogleProvider({
+    //   clientId: env.GOOGLE_CLIENT_ID,
+    //   clientSecret: env.GOOGLE_CLIENT_SECRET
+    // }),
     // ...add more providers here
   ],
 };

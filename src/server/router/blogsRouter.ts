@@ -2,11 +2,17 @@ import { createRouter } from "./context";
 import { z } from "zod";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { TRPCError } from "@trpc/server";
+import { prisma } from "../db/client";
 
 export const blogRouter = createRouter()
   .query("getAllBlog", {
     async resolve({ ctx }) {
       return await ctx.prisma.blog.findMany({
+        select: {
+          title: true,
+          description: true,
+          author: true,
+        },
         orderBy: {
           createdAt: "desc",
         },
@@ -30,6 +36,8 @@ export const blogRouter = createRouter()
     input: z.object({
       title: z.string(),
       content: z.string(),
+      headimage: z.string().url(),
+      author: z.string(),
       description: z.string(),
     }),
     async resolve({ input, ctx }) {
@@ -37,8 +45,17 @@ export const blogRouter = createRouter()
         return await ctx.prisma.blog.create({
           data: {
             title: input.title,
-            content: input.content,
             description: input.description,
+            author: input.author,
+            userId: ctx.session?.user?.id,
+            BlogContent: {
+              create: [
+                {
+                  headerImage: input.headimage,
+                  content: input.content,
+                },
+              ],
+            },
             // userId: ctx.session.user.id,
           },
         });

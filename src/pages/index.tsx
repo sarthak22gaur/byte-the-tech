@@ -3,11 +3,38 @@ import Head from "next/head";
 import { trpc } from "../utils/trpc";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 import Navbar from "@/components/Navbar";
 
-const Home: NextPage = () => {
+import { createContext } from "../server/router/context";
 
+import { appRouter } from "../server/router";
+import superjson from "superjson";
+import { createSSGHelpers } from "@trpc/react/ssg";
+import {
+  GetStaticPaths,
+  GetStaticPropsContext,
+  InferGetStaticPropsType,
+} from "next";
+
+export const getStaticProps = async () => {
+  const ssg = createSSGHelpers({
+    router: appRouter,
+    ctx: await createContext(),
+    transformer: superjson,
+  });
+
+  const allBlogs = await ssg.fetchQuery("blogs.getAllBlog");
+
+  return {
+    props: {
+      trpcState: ssg.dehydrate(),
+      allBlogs,
+    },
+    revalidate: 20000,
+  };
+};
+
+const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <Head>
@@ -17,9 +44,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className="container mx-auto flex flex-col items-center justify-center p-4">
-        <button onClick={() => signIn()}>SignIn</button>
-      </main>
+      <div>
+        {props.allBlogs?.map((blog, index) => {
+          return <div key={index}>{blog.author}</div>;
+        })}
+      </div>
     </>
   );
 };

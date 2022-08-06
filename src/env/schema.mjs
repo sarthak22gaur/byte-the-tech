@@ -14,6 +14,11 @@ export const serverSchema = z.object({
   DISCORD_CLIENT_SECRET: z.string(),
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
+  MAILTRAP_HOST: z.string(),
+  MAILTRAP_PORT: z.string(),
+  MAILTRAP_USER: z.string(),
+  MAILTRAP_PASS: z.string(),
+  MAILTRAP_SENDER: z.string(),
 });
 
 /**
