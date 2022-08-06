@@ -1,8 +1,5 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { trpc } from "../utils/trpc";
-import { useSession, signIn, signOut } from "next-auth/react";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
 import { createContext } from "../server/router/context";
@@ -15,6 +12,8 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
+
+import BlogGrid from "@/components/BlogGrid";
 
 export const getStaticProps = async () => {
   const ssg = createSSGHelpers({
@@ -45,9 +44,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       </Head>
       <Navbar />
       <div>
-        {props.allBlogs?.map((blog, index) => {
-          return <div key={index}>{blog.author}</div>;
-        })}
+        <BlogGrid blogs={props.allBlogs}/>
       </div>
     </>
   );
