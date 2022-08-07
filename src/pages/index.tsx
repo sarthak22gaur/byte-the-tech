@@ -49,9 +49,6 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
          return (<BlogCard blog={curr} key={index} />);
         })}
       </div>
-        {/* <BlogGrid blogs={props.allBlogs}/> */}
-        
-
     </>
   );
 };

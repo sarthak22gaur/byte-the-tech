@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
+import CommentsCard from '@/components/CommentsCard'
 import Image from "next/image";
 import { serialize } from "next-mdx-remote/serialize";
 import { MDXRemote } from "next-mdx-remote";
@@ -33,11 +34,13 @@ export const getStaticProps = async (
   const id = context.params?.id as string;
   console.log(context);
   const blog = await ssg.fetchQuery("blogs.getSingleBlog", { blogId: id });
+  const comments = await ssg.fetchQuery('comment.getCommentsOnPost', { blogId: id });
   // const blogCont = await serialize(blog?.BlogContent[0]?.content ? blog?.BlogContent[0]?.content : 'Not available')
   return {
     props: {
       trpcState: ssg.dehydrate(),
       blog,
+      comments
       //   blogCont
     },
     revalidate: 20000,
@@ -70,7 +73,10 @@ const id = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <Navbar />
-      <Blog blog={props.blog}/>
+      <div className="flex flex-col items-center justify-center">
+      <Blog blog={props.blog} comments={props.comments}/>
+      </div>
+      
     </>
   );
 };

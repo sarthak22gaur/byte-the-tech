@@ -11,11 +11,18 @@ export const commentRouter = createRouter()
     async resolve({ input, ctx }) {
       return await ctx.prisma.comment.findMany({
         where: {
-          blogContentId: input.blogId,
+          blogId: input.blogId,
         },
         select: {
           message: true,
           createdBy: true,
+          User: {
+            select: {
+              name: true,
+              image: true,
+              
+            }
+          }
         },
       });
     },
@@ -32,7 +39,7 @@ export const commentRouter = createRouter()
         return await ctx.prisma.comment.create({
           data: {
             message: input.message,
-            blogContentId: input.blogId,
+            blogId: input.blogId,
             createdBy: input.userName,
             userId: ctx.session?.user?.id ? ctx.session.user.id : input.userId,
           },

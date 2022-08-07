@@ -25,7 +25,7 @@ export const blogRouter = createRouter()
     }),
 
     async resolve({ input, ctx }) {
-      return await ctx.prisma.blog.findUnique({
+      const result = await ctx.prisma.blog.findUnique({
         where: {
           id: input.blogId,          
         },
@@ -37,31 +37,13 @@ export const blogRouter = createRouter()
             select: {
               content: true,
               headerImage: true,
-              comments: {
-                select: {
-                  message: true,
-                  userId: true,
-                }
-              }
+              
             }
-          }
+          },
         }
       });
-
-
-    //   return {
-    //     blog: {
-    //     BlogContent: {
-    //         content: 'SOme content',
-    //         headerImage: 'https://storage.googleapis.com/cp_bucket_test/aGmZyh352ILQCpASTYbWnESg1657055053162.jpg',
-    //         comments: {
-    //             message: 'asdefasds',
-    //             userId: 'asdfasu8932ujfas',
-    //         }[],
-    //     }[],
-    //     description: 'This is a random descirption',
-    //     author: 'Sarthak gaur',
-    // } 
+      console.log(result);
+      return result;
     },
   })
   .mutation("createBlog", {
@@ -92,6 +74,7 @@ export const blogRouter = createRouter()
           },
         });
       } catch (e) {
+        console.log(e)
         if (e instanceof PrismaClientKnownRequestError) {
           if (e.code === "P2002") {
             throw new TRPCError({

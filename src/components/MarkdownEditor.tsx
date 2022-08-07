@@ -39,7 +39,7 @@ const MarkedPreview = () => {
 
   return (
     <>
-      <div className="w-[50%] border-[1px] p-4">
+      <div className="w-[50%] border-[1px] p-4 prose dark:prose-invert">
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{markdownText}</ReactMarkdown>
       </div>
     </>

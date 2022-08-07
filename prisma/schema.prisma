@@ -20,33 +20,33 @@ datasource db {
 model Blog {
   id          String        @id @default(cuid())
   title       String        @unique
-  description String
+  description String        @db.MediumText
   author      String
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @default(now())
   User        User?         @relation(fields: [userId], references: [id])
   userId      String?
   BlogContent BlogContent[]
-}
-
-model BlogContent {
-  id          String    @id @default(cuid())
-  headerImage String
-  content     String    @db.LongText
-  Blog        Blog      @relation(fields: [blogId], references: [id])
-  blogId      String
   comments    Comment[]
 }
 
+model BlogContent {
+  id          String @id @default(cuid())
+  headerImage String
+  content     String @db.LongText
+  Blog        Blog   @relation(fields: [blogId], references: [id])
+  blogId      String
+}
+
 model Comment {
-  id            String      @id @default(cuid())
-  message       String
-  createdAt     DateTime    @default(now())
-  createdBy     String
-  User          User        @relation(fields: [userId], references: [id])
-  userId        String
-  BlogContent   BlogContent @relation(fields: [blogContentId], references: [id])
-  blogContentId String
+  id        String   @id @default(cuid())
+  message   String   @db.LongText
+  createdAt DateTime @default(now())
+  createdBy String
+  User      User     @relation(fields: [userId], references: [id])
+  userId    String
+  Blog      Blog     @relation(fields: [blogId], references: [id])
+  blogId    String
 }
 
 // Necessary for Next auth
