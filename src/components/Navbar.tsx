@@ -15,7 +15,7 @@ const Navbar = () => {
 
   const { theme, setTheme } = useTheme();
   return (
-    <nav className="sticky w-full top-0 z-10">
+    <nav className="sticky w-full top-0 z-10 bg-teal-600">
       <div className={tw_Navbar}>
         <i>BTT</i>
         <div className="flex">
