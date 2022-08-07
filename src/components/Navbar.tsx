@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import { IoLogIn, IoLogOut } from "react-icons/io5";
+import { IoLogOutOutline, IoLogoGoogle } from "react-icons/io5";
 import { FaUserAstronaut } from "react-icons/fa";
 
 const Navbar = () => {
@@ -35,13 +35,17 @@ const Navbar = () => {
           </div>
           <div className={tw_NavbarLinks}>
             {status === "unauthenticated" && (
-              <button onClick={() => signIn()}>
-                <IoLogIn />
+              <button
+                className="flex items-center gap-2"
+                onClick={() => signIn()}
+              >
+                <span className="font-light text-lg hidden sm:block">Login with</span>
+                <IoLogoGoogle />
               </button>
             )}
             {status === "authenticated" && (
               <button onClick={() => signOut()}>
-                <IoLogOut />
+                <IoLogOutOutline size={30} />
               </button>
             )}
           </div>
