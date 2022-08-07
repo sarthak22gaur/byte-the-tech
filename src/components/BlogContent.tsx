@@ -43,7 +43,7 @@ const Blog: React.FC<{
         </article>
       </div>
       <div className="flex flex-col text-justify shadow-lg p-8">
-        <CommentsCard comments={props.comments}/>
+        <CommentsCard comments={props.comments} blogId={props.blog?.id ? props.blog.id : '1234'}/>
       </div>
     </div>
   );

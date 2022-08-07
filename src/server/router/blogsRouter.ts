@@ -33,6 +33,7 @@ export const blogRouter = createRouter()
           author: true,
           description: true,
           title: true,
+          id: true,
           BlogContent: {
             select: {
               content: true,

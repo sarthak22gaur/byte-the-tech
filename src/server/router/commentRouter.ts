@@ -20,9 +20,10 @@ export const commentRouter = createRouter()
             select: {
               name: true,
               image: true,
-              
+
             }
-          }
+          },
+          blogId: true
         },
       });
     },

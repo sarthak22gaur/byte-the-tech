@@ -12,10 +12,11 @@ type getALLCommentsQueryOutput = inferQueryOutput<"comment.getCommentsOnPost">;
 
 const CommentsCard: React.FC<{
   comments: getALLCommentsQueryOutput;
+  blogId: string;
 }> = (props) => {
   return (
     <>
-      <CommentForm />
+      <CommentForm id={props.blogId}/>
       {props.comments.map((curr, index) => {
         return <CommentsContent comment={curr} key={index} />;
       })}
@@ -23,7 +24,9 @@ const CommentsCard: React.FC<{
   );
 };
 
-const CommentForm: React.FC = () => {
+const CommentForm: React.FC<{
+  id: string;
+}> = (props) =>{
   const { data: session, status } = useSession();
   type createComment = inferMutationInput<"comment.createCommentOnPost">;
 
@@ -46,7 +49,7 @@ const CommentForm: React.FC = () => {
       console.log("in mutate");
       mutate({
         message: data.message,
-        blogId: "cl6iq6d480570iov02ekixnr8",
+        blogId: props.id,
         userId: session?.user?.id,
         userName: session.user.name,
       });
