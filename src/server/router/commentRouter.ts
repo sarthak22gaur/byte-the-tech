@@ -20,10 +20,9 @@ export const commentRouter = createRouter()
             select: {
               name: true,
               image: true,
-
-            }
+            },
           },
-          blogId: true
+          blogId: true,
         },
       });
     },
@@ -37,13 +36,21 @@ export const commentRouter = createRouter()
     }),
     async resolve({ input, ctx }) {
       try {
-        return await ctx.prisma.comment.create({
-          data: {
-            message: input.message,
-            blogId: input.blogId,
-            createdBy: input.userName,
-            userId: ctx.session?.user?.id ? ctx.session.user.id : input.userId,
-          },
+        if (ctx.session) {
+          return await ctx.prisma.comment.create({
+            data: {
+              message: input.message,
+              blogId: input.blogId,
+              createdBy: input.userName,
+              userId: ctx.session?.user?.id
+                ? ctx.session.user.id
+                : input.userId,
+            },
+          });
+        }
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You need to be logged in to post a comment",
         });
       } catch (e) {
         if (e instanceof PrismaClientKnownRequestError) {
@@ -53,6 +60,8 @@ export const commentRouter = createRouter()
               message: "Comment already exists",
             });
           }
+        } else if (e instanceof TRPCError) {
+          throw e;
         }
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",

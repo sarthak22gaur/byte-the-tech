@@ -1,13 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
-import CommentsCard from '@/components/CommentsCard'
-import Image from "next/image";
-import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemote } from "next-mdx-remote";
-
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
+import SocialBanner from "@/components/SocialBanner";
 
 import { createContext } from "@/server/router/context";
 
@@ -23,7 +17,7 @@ import {
 import Blog from "@/components/BlogContent";
 
 export const getStaticProps = async (
-  context: GetStaticPropsContext<{ id: string; title: string }>
+  context: GetStaticPropsContext<{ slug: string;}>
 ) => {
   const ssg = createSSGHelpers({
     router: appRouter,
@@ -31,11 +25,9 @@ export const getStaticProps = async (
     transformer: superjson,
   });
 
-  const id = context.params?.id as string;
-  console.log(context);
-  const blog = await ssg.fetchQuery("blogs.getSingleBlog", { blogId: id });
-  const comments = await ssg.fetchQuery('comment.getCommentsOnPost', { blogId: id });
-  // const blogCont = await serialize(blog?.BlogContent[0]?.content ? blog?.BlogContent[0]?.content : 'Not available')
+  const slug = context.params?.slug as string;
+  const blog = await ssg.fetchQuery("blogs.getSingleBlog", { blogId: slug });
+  const comments = await ssg.fetchQuery('comment.getCommentsOnPost', { blogId: slug });
   return {
     props: {
       trpcState: ssg.dehydrate(),
@@ -59,8 +51,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: allBlogs.map((blog) => ({
       params: {
-        id: blog.id,
-        title: String(blog.title.split(" ").join("-").toLowerCase()),
+        slug: blog.id,
+        // title: String(blog.title.split(" ").join("-").toLowerCase()),
       },
     })),
     // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking
@@ -69,13 +61,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const id = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-//   console.log(props.blog);
   return (
     <>
       <Navbar />
       <div className="flex flex-col items-center justify-center">
       <Blog blog={props.blog} comments={props.comments}/>
       </div>
+      <SocialBanner />
       
     </>
   );

@@ -14,7 +14,7 @@ const Blog: React.FC<{
   comments: getALLCommentsQueryOutput; 
 }> = (props) => {
   return (
-    <div className="w-fit max-w-3xl flex flex-col justify-center gap-8 p-8">
+    <div className="w-full max-w-3xl flex flex-col justify-center gap-8 p-8">
       <div className="flex flex-col justify-center shadow-lg items-center p-4">
         <div className="block w-full h-fit">
           <Image

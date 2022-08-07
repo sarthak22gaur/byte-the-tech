@@ -44,7 +44,7 @@ const Create: NextPage = () => {
     return <div>Loading...</div>;
   }
 
-  if (session?.role) {
+  if (session?.role === 'MEMBER') {
     return (
       <DefaultEditorContext.Provider value={editorCtx}>
         <Navbar />

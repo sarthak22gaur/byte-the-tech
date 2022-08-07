@@ -1,6 +1,14 @@
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 
 @layer base {
+
+  /* body {
+    @apply h-screen;
+  } */
     h1 {
       @apply text-2xl;
     }
@@ -14,7 +22,15 @@
     
     }
   }
+
+  @layer components {
+    #__next {
+        @apply h-full;
+    }
+    html,
+    body {
+        @apply h-full;
+    }
+}
   
 
-@tailwind components;
-@tailwind utilities;

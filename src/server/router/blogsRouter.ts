@@ -27,7 +27,7 @@ export const blogRouter = createRouter()
     async resolve({ input, ctx }) {
       const result = await ctx.prisma.blog.findUnique({
         where: {
-          id: input.blogId,          
+          id: input.blogId,
         },
         select: {
           author: true,
@@ -38,12 +38,10 @@ export const blogRouter = createRouter()
             select: {
               content: true,
               headerImage: true,
-              
-            }
+            },
           },
-        }
+        },
       });
-      console.log(result);
       return result;
     },
   })
@@ -57,25 +55,30 @@ export const blogRouter = createRouter()
     }),
     async resolve({ input, ctx }) {
       try {
-        return await ctx.prisma.blog.create({
-          data: {
-            title: input.title,
-            description: input.description,
-            author: input.author,
-            userId: ctx.session?.user?.id,
-            BlogContent: {
-              create: [
-                {
-                  headerImage: input.headimage,
-                  content: input.content,
-                },
-              ],
+        if (ctx.session?.role === "MEMBER") {
+          return await ctx.prisma.blog.create({
+            data: {
+              title: input.title,
+              description: input.description,
+              author: input.author,
+              userId: ctx.session?.user?.id,
+              BlogContent: {
+                create: [
+                  {
+                    headerImage: input.headimage,
+                    content: input.content,
+                  },
+                ],
+              },
+              // userId: ctx.session.user.id,
             },
-            // userId: ctx.session.user.id,
-          },
+          });
+        }
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "You need to be a member to post a blog",
         });
       } catch (e) {
-        console.log(e)
         if (e instanceof PrismaClientKnownRequestError) {
           if (e.code === "P2002") {
             throw new TRPCError({
@@ -83,6 +86,8 @@ export const blogRouter = createRouter()
               message: "Blog already exists",
             });
           }
+        } else if (e instanceof TRPCError) {
+          throw e;
         }
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",

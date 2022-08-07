@@ -42,11 +42,10 @@ const CommentForm: React.FC<{
   });
 
   const onFormSave = (data: { message: string }) => {
-    console.log("In form save");
-    console.log(session);
+
 
     if (session && session.user && session.user.id && session.user.name) {
-      console.log("in mutate");
+
       mutate({
         message: data.message,
         blogId: props.id,

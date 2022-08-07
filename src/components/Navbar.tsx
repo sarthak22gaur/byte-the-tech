@@ -8,20 +8,29 @@ import { FaUserAstronaut } from "react-icons/fa";
 
 const Navbar = () => {
   const tw_NavbarLinks = "px-4 items-center justify-center cursor-pointer flex";
-  const tw_Navbar = "flex justify-between text-2xl p-4 gap-4 dark:bg-[rgb(19,27,46)]";
+  const tw_Navbar =
+    "flex justify-between text-2xl p-4 gap-4 dark:bg-[rgb(19,27,46)]";
 
   const { data: session, status } = useSession();
 
   const { theme, setTheme } = useTheme();
   return (
-    <>
-    <div className="sticky w-full top-0 z-10">
-      <nav className={tw_Navbar}>
+    <nav className="sticky w-full top-0 z-10">
+      <div className={tw_Navbar}>
         <i>BTT</i>
         <div className="flex">
           <div className={tw_NavbarLinks}>
+            <button
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              <MdLightMode />
+            </button>
+          </div>
+          <div className={tw_NavbarLinks}>
             <Link href="/">
-              <FaUserAstronaut />
+              <div>
+                <FaUserAstronaut />
+              </div>
             </Link>
           </div>
           <div className={tw_NavbarLinks}>
@@ -36,17 +45,9 @@ const Navbar = () => {
               </button>
             )}
           </div>
-          <div className={tw_NavbarLinks}>
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            >
-              <MdLightMode />
-            </button>
-          </div>
         </div>
-      </nav>
       </div>
-    </>
+    </nav>
   );
 };
 export default Navbar;
