@@ -13,6 +13,19 @@ module.exports = {
       fontFamily: {
         sans: ["Inter"],
       },
+      colors: {
+        'primary-dark': "#0e1e2e",
+        'primary-light': "#f5f5f5",
+        'primary-dark-hover': "#0e1e2e",
+        'primary-light-hover': "#f5f5f5",
+        'primary-dark-active': "#0e1e2e",
+        'primary-light-active': "#f5f5f5",
+        'secondary-dark': "#0e1e2e",
+        'secondary-light': "#f5f5f5",
+        'secondary-dark-hover': "#0e1e2e",
+        'secondary-light-hover': "#f5f5f5",
+        'secondary-dark-active': "#0e1e2e",
+      }
 
     },
   },

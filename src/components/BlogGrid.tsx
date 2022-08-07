@@ -25,7 +25,7 @@ export const BlogCard: React.FC<{
 }> = (props) => {
   return (
     <Link href={`/blog/${props.blog.id}`}>
-      <div className=" cursor-pointer px-6 py-6 md:px-10 md:w-1/3 flex flex-col gap-4 items-stretch justify-between text-justify border-b-2 rounded">
+      <div className=" cursor-pointer p-4 md:w-1/3 flex flex-col gap-4 items-stretch justify-between text-justify shadow-md rounded">
         <div className="flex flex-col gap-4">
           <div className="text-2xl font-bold dark:text-cyan-300 text-blue-800">
             {props.blog.title}
