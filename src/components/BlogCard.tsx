@@ -26,7 +26,7 @@ export const BlogCard: React.FC<{
           <div className="text-2xl pb-4 font-bold dark:text-secondary-dark text-secondary-light group-hover:text-accent-light transition-colors">
             {props.blog.title}
           </div>
-          <div className="text-lg pb-4 text-primary-light group-hover:text-secondary-light dark:group-hover:text-secondary-dark transition-all">
+          <div className="text-lg pb-4 text-primary-light/80 dark:text-secondary-dark/75 group-hover:text-secondary-light dark:group-hover:text-secondary-dark transition-all">
             {props.blog.description}
           </div>
           {tags && (

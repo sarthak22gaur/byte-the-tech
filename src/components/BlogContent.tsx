@@ -22,7 +22,7 @@ const Blog: React.FC<{
     tags = props.blog.tags.split(",");
   }
   return (
-    <div className="w-full max-w-3xl flex flex-col justify-center gap-8 p-8">
+    <div className="w-full md:max-w-[70vw] flex flex-col justify-center gap-8 p-8">
       <div className="flex flex-col justify-center shadow-lg items-center p-4">
         <div className="block w-full h-fit">
           <Image
@@ -57,7 +57,7 @@ const Blog: React.FC<{
           )}
       </div>
       <div className="flex flex-col justify-center shadow-xl items-center p-4">
-        <article className="prose prose-sm sm:prose-base lg:prose-xl xl:prose-xl dark:prose-invert text-justify">
+        <article className="prose  max-w-none prose-sm sm:prose-base lg:prose-xl xl:prose-xl dark:prose-invert text-justify">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {props.blog?.BlogContent[0]?.content
               ? props.blog?.BlogContent[0]?.content
