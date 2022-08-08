@@ -19,32 +19,32 @@ const Navbar = () => {
     <nav className="sticky w-full flex items-center justify-center top-0 z-10 border-b-2 bg-secondary-light-bg dark:bg-secondary-dark-bg">
       <div className={tw_Navbar}>
         <Link href="/">
-          <div className="cursor-pointer font-bold font-['dancing_script']">BTT</div>
+          <i className="cursor-pointer font-bold font-['dancing_script']">BTT</i>
         </Link>
-        <div className="flex">
-          <div className={tw_NavbarLinks}>
+        <ul className="flex">
+          <li className={tw_NavbarLinks}>
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
               <MdLightMode />
             </button>
-          </div>
-          <div className={tw_NavbarLinks}>
+          </li>
+          <li className={tw_NavbarLinks}>
             <Link href="/">
-              <div>
+              <i>
                 <FaUserAstronaut />
-              </div>
+              </i>
             </Link>
-          </div>
-          <div className={tw_NavbarLinks}>
+          </li>
+          <li className={tw_NavbarLinks}>
             {status === "unauthenticated" && (
               <button
                 className="flex items-center gap-2"
                 onClick={() => signIn()}
               >
-                <span className="font-light text-lg hidden sm:block">
+                <p className="font-light text-lg hidden sm:block">
                   Login with
-                </span>
+                </p>
                 <IoLogoGoogle />
               </button>
             )}
@@ -53,8 +53,8 @@ const Navbar = () => {
                 <IoLogOutOutline size={30} />
               </button>
             )}
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </nav>
   );

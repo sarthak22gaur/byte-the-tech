@@ -4,18 +4,17 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-import {AiFillTags} from 'react-icons/ai'
+import { AiFillTags } from "react-icons/ai";
 
 import CommentsCard from "@/components/CommentsCard";
 
 type blogContent = inferQueryOutput<"blogs.getSingleBlog">;
-type getALLCommentsQueryOutput = inferQueryOutput<'comment.getCommentsOnPost'>;
+type getALLCommentsQueryOutput = inferQueryOutput<"comment.getCommentsOnPost">;
 
 const Blog: React.FC<{
   blog: blogContent;
-  comments: getALLCommentsQueryOutput; 
+  comments: getALLCommentsQueryOutput;
 }> = (props) => {
-
   let tags: Array<string>;
   tags = [];
   if (props.blog && props.blog.tags && props.blog.tags !== "NULL") {
@@ -23,7 +22,7 @@ const Blog: React.FC<{
   }
   return (
     <div className="w-full md:max-w-[70vw] flex flex-col justify-center gap-8 p-8">
-      <div className="flex flex-col justify-center shadow-lg items-center p-4">
+      <header className="flex flex-col justify-center shadow-lg items-center p-4">
         <div className="block w-full h-fit">
           <Image
             layout="responsive"
@@ -41,21 +40,21 @@ const Blog: React.FC<{
           {props.blog?.title}
         </div>
         {tags && (
-            <div className="text-lg items-center flex gap-4 pb-4">
-              {/* <AiFillTags className="" size={24}/> */}
-              {tags.map((tag, index) => {
-                return (
-                  <div
-                    className="bg-secondary-light-bg dark:bg-accent-light px-2 rounded transition-colors"
-                    key={index}
-                  >
-                    {tag}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-      </div>
+          <div className="text-lg items-center flex gap-4 pb-4">
+            {/* <AiFillTags className="" size={24}/> */}
+            {tags.map((tag, index) => {
+              return (
+                <div
+                  className="bg-secondary-light-bg dark:bg-accent-light px-2 rounded transition-colors"
+                  key={index}
+                >
+                  {tag}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </header>
       <div className="flex flex-col justify-center shadow-xl items-center p-4">
         <article className="prose  max-w-none prose-sm sm:prose-base lg:prose-xl xl:prose-xl dark:prose-invert text-justify">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
@@ -65,9 +64,12 @@ const Blog: React.FC<{
           </ReactMarkdown>
         </article>
       </div>
-      <div className="flex flex-col text-justify shadow-lg p-8">
-        <CommentsCard comments={props.comments} blogId={props.blog?.id ? props.blog.id : '1234'}/>
-      </div>
+      <section className="flex flex-col text-justify shadow-lg p-8">
+        <CommentsCard
+          comments={props.comments}
+          blogId={props.blog?.id ? props.blog.id : "1234"}
+        />
+      </section>
     </div>
   );
 };

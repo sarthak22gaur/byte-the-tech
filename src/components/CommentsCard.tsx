@@ -87,13 +87,13 @@ const CommentForm: React.FC<{
   }
   return (
 
-      <div className="p-4 flex items-center justify-center gap-4">
+      <p className="p-4 flex items-center justify-center gap-4">
         <span>Wanna share your thoughts?</span>
         <button className="flex items-center gap-2 bg-light-hover hover:scale-105 hover:bg-secondary-light-bg px-2 py-1 dark:hover:bg-accent-light rounded transition-all" onClick={() => signIn()}>
           <span>Login here</span>
           <IoLogoGoogle />
         </button>
-      </div>
+      </p>
 
   );
 };
@@ -122,7 +122,7 @@ const CommentsContent: React.FC<{
           <div className="font-semibold text-lg mb-2">
             {props.comment.User.name}
           </div>
-          <div className="">{props.comment.message}</div>
+          <p className="">{props.comment.message}</p>
         </div>
       </div>
     </div>
