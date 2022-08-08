@@ -49,8 +49,8 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
       <div className="h-full">
         <Navbar />
-        <div className="w-full border-t-2 flex flex-col sm:flex-row justify-around items-center bg-teal-600">
-          <h1 className="text-4xl sm:text-6xl font-bold w-fit sm:w-min pt-12 pb-8 px-4">
+        <div className="w-full border-t-2 flex flex-col pt-8 sm:flex-row justify-around items-center bg-teal-600">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold w-fit sm:w-min px-8">
             Byte The Tech
           </h1>
           <div className="w-full max-w-2xl px-8">

@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import MarkdownEditor from "@/components/MarkdownEditor";
 import DefaultEditorContext from "@/context/editorContext";
+import TagsForm from "@/components/Tags";
 import Navbar from "@/components/Navbar";
 
 import { trpc, inferMutationInput } from "@/utils/trpc";
@@ -104,11 +105,13 @@ const Create: NextPage = () => {
                   required
                 />
               </div>
+              
               <div className="">
                 <button type="submit">Save</button>
               </div>
             </div>
           </form>
+          <TagsForm />
           <MarkdownEditor />
         </div>
       </DefaultEditorContext.Provider>
