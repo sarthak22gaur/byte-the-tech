@@ -37,48 +37,8 @@ const Create: NextPage = () => {
       headimage: data.headimage,
       author: data.author,
       content: markdownText,
-      tags: tags,
+      tags: data.tags,
     });
-  };
-
-  const [isKeyReleased, setIsKeyReleased] = useState(false);
-  const [input, setInput] = useState("");
-  const [tags, setTags] = useState<string[]>([]);
-
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setInput(value);
-  };
-
-  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    const { key } = e;
-    const trimmedInput = input.trim();
-
-    if (key === "," && trimmedInput.length && !tags.includes(trimmedInput)) {
-      e.preventDefault();
-      setTags((prevState) => [...prevState, trimmedInput]);
-      setInput("");
-    }
-
-    if (key === "Backspace" && !input.length && tags.length && isKeyReleased) {
-      const tagsCopy = [...tags];
-      const poppedTag = tagsCopy.pop();
-      e.preventDefault();
-      setTags(tagsCopy);
-      if (poppedTag) {
-        setInput(poppedTag);
-      }
-    }
-
-    setIsKeyReleased(false);
-  };
-
-  const deleteTag = (index: number) => {
-    setTags((prevState) => prevState.filter((tag, i) => i !== index));
-  };
-
-  const onKeyUp = () => {
-    setIsKeyReleased(true);
   };
 
   if (status === "loading") {
@@ -128,7 +88,7 @@ const Create: NextPage = () => {
                 <input
                   className="p-2"
                   type="url"
-                  id="description"
+                  id="headimage"
                   {...register("headimage")}
                   placeholder="Header image url"
                   required
@@ -139,35 +99,27 @@ const Create: NextPage = () => {
                 <input
                   className="p-2"
                   type="text"
-                  id="description"
+                  id="author"
                   {...register("author")}
                   placeholder="Author Name"
                   required
                 />
+                <label className="my-2" htmlFor="tags">
+                  Tags
+                </label>
+                <input
+                  className="p-2"
+                  type="text"
+                  id="tags"
+                  {...register("tags")}
+                  placeholder="Add tags as comma seperated values(max: 3)"
+                  required
+                />
               </div>
 
-              <div className="p-2 m-4 border-2 border-cyan-700 rounded-xl w-fit">
+              <div className="p-2 my-4 border-2 border-cyan-700 rounded w-fit">
                 <button type="submit">Save</button>
               </div>
-            </div>
-            <div className="p-4 m-4">
-              {tags.map((tag, index) => (
-                <div
-                  className="flex gap-8 m-4 w-fit p-2 rounded-xl bg-red-300"
-                  key={index}
-                >
-                  {tag}
-                  <button onClick={() => deleteTag(index)}>X</button>
-                </div>
-              ))}
-              <input
-                className="border-2 border-cyan-700 p-2"
-                value={input}
-                placeholder="Enter a tag"
-                onKeyDown={onKeyDown}
-                onKeyUp={onKeyUp}
-                onChange={onChange}
-              />
             </div>
           </form>
           <MarkdownEditor />

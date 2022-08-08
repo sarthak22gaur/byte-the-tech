@@ -12,6 +12,7 @@ export const blogRouter = createRouter()
           title: true,
           description: true,
           author: true,
+          tags: true,
         },
         orderBy: {
           createdAt: "desc",
@@ -34,6 +35,7 @@ export const blogRouter = createRouter()
           description: true,
           title: true,
           id: true,
+          tags: true,
           BlogContent: {
             select: {
               content: true,
@@ -52,7 +54,7 @@ export const blogRouter = createRouter()
       headimage: z.string().url(),
       author: z.string(),
       description: z.string(),
-      tags: z.string().array()
+      tags: z.string()
     }),
     async resolve({ input, ctx }) {
       try {
@@ -63,6 +65,7 @@ export const blogRouter = createRouter()
               description: input.description,
               author: input.author,
               userId: ctx.session?.user?.id,
+              tags: input.tags,
               BlogContent: {
                 create: [
                   {

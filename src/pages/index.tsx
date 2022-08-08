@@ -1,10 +1,6 @@
-import type { NextPage } from "next";
 import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import SocialBanner from "@/components/SocialBanner";
-
-import Particles from "react-tsparticles";
-import { loadFull } from "tsparticles";
 import Image from "next/image";
 
 import { createContext } from "../server/router/context";
@@ -49,7 +45,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
       <div className="h-full">
         <Navbar />
-        <div className="w-full border-t-2 flex flex-col pt-8 sm:flex-row justify-around items-center bg-teal-600">
+        <div className="w-full flex flex-col pt-8 sm:flex-row justify-around items-center bg-teal-600">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold w-fit sm:w-min px-8">
             Byte The Tech
           </h1>
@@ -66,7 +62,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         </div>
 
         <div className="w-full flex justify-center items-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl py-8 m-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[80vw] py-8 m-8">
             {props.allBlogs.map((curr, index) => {
               return <BlogCard blog={curr} key={index} />;
             })}

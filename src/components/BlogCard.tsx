@@ -9,6 +9,15 @@ type allBlogsType = inferQueryOutput<"blogs.getAllBlog">;
 export const BlogCard: React.FC<{
   blog: allBlogsType[number];
 }> = (props) => {
+  let tags: Array<string>;
+
+  tags = [];
+  if (props.blog.tags !== "NULL") {
+    tags = props.blog.tags.split(",");
+  }
+
+  console.log(tags);
+
   return (
     <Link href={`/blog/${props.blog.id}`}>
       <div className="flex flex-col justify-between cursor-pointer hover:scale-105 transition-all p-4 text-justify shadow-md rounded">
@@ -17,11 +26,19 @@ export const BlogCard: React.FC<{
             {props.blog.title}
           </div>
           <div className="text-lg pb-4">{props.blog.description}</div>
+          {tags && (
+            <div className="text-lg flex gap-2 pb-4">
+              {tags.map((tag, index) => {
+                return <div className="bg-teal-600 px-2 rounded-md" key={index}>{tag}</div>;
+              })}
+            </div>
+          )}
         </div>
 
         <div className="flex items-center justify-between">
           <div className="text-lg">
-            Author: <span className="font-semibold italic">{props.blog.author}</span>
+            Author:{" "}
+            <span className="font-semibold italic">{props.blog.author}</span>
           </div>
           <IoArrowRedoSharp size="24" />
         </div>
