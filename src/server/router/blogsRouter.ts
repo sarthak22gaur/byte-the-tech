@@ -52,6 +52,7 @@ export const blogRouter = createRouter()
       headimage: z.string().url(),
       author: z.string(),
       description: z.string(),
+      tags: z.string().array()
     }),
     async resolve({ input, ctx }) {
       try {
