@@ -46,9 +46,9 @@ export const BlogCard: React.FC<{
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="text-lg">
+          <div className="text-lg font-light">
             Author:{" "}
-            <span className="font-semibold italic">{props.blog.author}</span>
+            <span className="font-bold font-['Dancing_Script']">{props.blog.author}</span>
           </div>
           <div className="group-hover:text-accent-light transition-all">
             <TiArrowRightOutline size="28" />

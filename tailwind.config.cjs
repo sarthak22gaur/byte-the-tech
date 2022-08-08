@@ -7,6 +7,10 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      // fontFamily: {
+      //   'sans': ['Fira Sans Condensed', ...fontFamily.sans],
+      //   'serif': ['Fira Sans Condensed', ...fontFamily.serif],
+      // },
       colors: {
 
         // Primary text colors

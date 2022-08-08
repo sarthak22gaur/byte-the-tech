@@ -7,6 +7,8 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { IoLogoGoogle } from "react-icons/io5";
+
 type blogContent = inferQueryOutput<"blogs.getSingleBlog">;
 type getALLCommentsQueryOutput = inferQueryOutput<"comment.getCommentsOnPost">;
 
@@ -36,10 +38,13 @@ const CommentForm: React.FC<{
       Complete onSuccess and onError
     */
 
-  const { mutate, error } = trpc.useMutation(["commentSecure.createCommentOnPost"], {
-    onError: (error) => {},
-    onSuccess: () => {},
-  });
+  const { mutate, error } = trpc.useMutation(
+    ["commentSecure.createCommentOnPost"],
+    {
+      onError: (error) => {},
+      onSuccess: () => {},
+    }
+  );
 
   const onFormSave = (data: { message: string }) => {
     if (session && session.user && session.user.id && session.user.name) {
@@ -80,7 +85,17 @@ const CommentForm: React.FC<{
       </form>
     );
   }
-  return <div>Please Login</div>;
+  return (
+
+      <div className="p-4 flex items-center justify-center gap-4">
+        <span>Wanna share your thoughts?</span>
+        <button className="flex items-center gap-2 bg-light-hover hover:scale-105 hover:bg-secondary-light-bg px-2 py-1 dark:hover:bg-accent-light rounded transition-all" onClick={() => signIn()}>
+          <span>Login here</span>
+          <IoLogoGoogle />
+        </button>
+      </div>
+
+  );
 };
 
 const CommentsContent: React.FC<{
