@@ -12,7 +12,7 @@ export const BlogCard: React.FC<{
   let tags: Array<string>;
 
   tags = [];
-  if (props.blog.tags !== "NULL") {
+  if (props.blog.tags && props.blog.tags !== "NULL") {
     tags = props.blog.tags.split(",");
   }
 
@@ -20,16 +20,16 @@ export const BlogCard: React.FC<{
 
   return (
     <Link href={`/blog/${props.blog.id}`}>
-      <div className="flex flex-col justify-between cursor-pointer hover:scale-105 transition-all p-4 text-justify shadow-md rounded">
-        <div className="">
-          <div className="text-2xl pb-4 font-bold dark:text-cyan-300 text-blue-800">
+      <div className="flex flex-col group gap-4 justify-between cursor-pointer sm:hover:scale-105 sm:hover:bg-light-hover sm:dark:hover:bg-dark-hover transition-all p-4 text-justify shadow-md rounded">
+        <div>
+          <div className="text-2xl pb-4 font-bold dark:text-secondary-dark text-secondary-light group-hover:text-accent-light transition-colors">
             {props.blog.title}
           </div>
-          <div className="text-lg pb-4">{props.blog.description}</div>
+          <div className="text-lg pb-4 text-primary-light">{props.blog.description}</div>
           {tags && (
             <div className="text-lg flex gap-2 pb-4">
               {tags.map((tag, index) => {
-                return <div className="bg-teal-600 px-2 rounded-md" key={index}>{tag}</div>;
+                return <div className="bg-secondary-light-bg dark:bg-dark-hover sm:bg-light-hover sm:group-hover:text-black  sm:group-hover:bg-accent-light px-2 rounded transition-colors" key={index}>{tag}</div>;
               })}
             </div>
           )}
@@ -40,7 +40,10 @@ export const BlogCard: React.FC<{
             Author:{" "}
             <span className="font-semibold italic">{props.blog.author}</span>
           </div>
+          <div className="group-hover:text-accent-light transition-all">
           <IoArrowRedoSharp size="24" />
+          </div>
+          
         </div>
       </div>
     </Link>

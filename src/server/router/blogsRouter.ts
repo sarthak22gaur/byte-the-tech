@@ -7,6 +7,9 @@ export const blogRouter = createRouter()
   .query("getAllBlog", {
     async resolve({ ctx }) {
       return await ctx.prisma.blog.findMany({
+        where: {
+          published: true
+        },
         select: {
           id: true,
           title: true,

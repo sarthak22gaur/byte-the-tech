@@ -6,9 +6,9 @@
 
 @layer base {
 
-  /* body {
-    @apply h-screen;
-  } */
+  html {
+    font-family: 'Fira Sans Condensed', sans-serif;
+  }
     h1 {
       @apply text-2xl;
     }
@@ -29,7 +29,8 @@
     }
     html,
     body {
-        @apply h-full;
+        /* @apply h-full; */
+        @apply bg-primary-light-bg dark:bg-primary-dark-bg
     }
 }
   
