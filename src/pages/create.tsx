@@ -17,7 +17,7 @@ const Create: NextPage = () => {
     setMarkdownText,
   };
   const { handleSubmit, register } = useForm<createBlog>();
-  type createBlog = inferMutationInput<"blogs.createBlog">;
+  type createBlog = inferMutationInput<"blogsSecure.createBlog">;
 
   // const selectedTags = tags => console.log(tags);
 
@@ -25,7 +25,7 @@ const Create: NextPage = () => {
     Complete onSuccess and onError
   */
 
-  const { mutate, error } = trpc.useMutation(["blogs.createBlog"], {
+  const { mutate, error } = trpc.useMutation(["blogsSecure.createBlog"], {
     onError: (error) => {},
     onSuccess: () => {},
   });

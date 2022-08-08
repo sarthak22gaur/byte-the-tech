@@ -20,7 +20,7 @@
     "@types/markdown-it": "^12.2.3",
     "@types/react-tagsinput": "^3.19.9",
     "markdown-it": "^13.0.1",
-    "next": "12.2.3",
+    "next": "^12.2.4-canary.9",
     "next-auth": "^4.10.3",
     "next-mdx-remote": "^4.1.0",
     "next-themes": "^0.2.0",

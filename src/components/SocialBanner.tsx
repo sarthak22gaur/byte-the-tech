@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { FiGithub, FiLinkedin  } from "react-icons/fi";
+import { FiGithub, FiLinkedin, FiMail  } from "react-icons/fi";
 
 const SocialBanner = () => {
   return (
@@ -14,6 +14,11 @@ const SocialBanner = () => {
         <Link href="https://www.linkedin.com/in/sarthak-gaur-22041998/">
           <div className="cursor-pointer sm:hover:text-accent-light sm:hover:-translate-y-1 transition-all">
             <FiLinkedin size={24}/>
+          </div>
+        </Link>
+        <Link href="https://www.linkedin.com/in/sarthak-gaur-22041998/">
+          <div className="cursor-pointer sm:hover:text-accent-light sm:hover:-translate-y-1 transition-all">
+            <FiMail size={24}/>
           </div>
         </Link>
       </div>

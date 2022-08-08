@@ -16,7 +16,7 @@ const CommentsCard: React.FC<{
 }> = (props) => {
   return (
     <>
-      <CommentForm id={props.blogId}/>
+      <CommentForm id={props.blogId} />
       {props.comments.map((curr, index) => {
         return <CommentsContent comment={curr} key={index} />;
       })}
@@ -26,9 +26,9 @@ const CommentsCard: React.FC<{
 
 const CommentForm: React.FC<{
   id: string;
-}> = (props) =>{
+}> = (props) => {
   const { data: session, status } = useSession();
-  type createComment = inferMutationInput<"comment.createCommentOnPost">;
+  type createComment = inferMutationInput<"commentSecure.createCommentOnPost">;
 
   const { handleSubmit, register } = useForm<createComment>();
 
@@ -36,16 +36,13 @@ const CommentForm: React.FC<{
       Complete onSuccess and onError
     */
 
-  const { mutate, error } = trpc.useMutation(["comment.createCommentOnPost"], {
+  const { mutate, error } = trpc.useMutation(["commentSecure.createCommentOnPost"], {
     onError: (error) => {},
     onSuccess: () => {},
   });
 
   const onFormSave = (data: { message: string }) => {
-
-
     if (session && session.user && session.user.id && session.user.name) {
-
       mutate({
         message: data.message,
         blogId: props.id,
@@ -63,7 +60,7 @@ const CommentForm: React.FC<{
     return (
       <form className="w-full" onSubmit={handleSubmit(onFormSave)}>
         <textarea
-          className="resize-none tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full rounded"
+          className="resize-none tracking-wide py-2 px-4 mb-3 leading-relaxed appearance-none block w-full rounded border-2 focus:border-0 hover:bg-light-hover active:bg-light-hover focus:bg-light-hover transition-colors"
           id="message"
           placeholder="What are your thoughts..?"
           rows={3}
@@ -73,7 +70,7 @@ const CommentForm: React.FC<{
 
         <div className="flex justify-end w-full ">
           <button
-            className="flex gap-4 items-center bg-slate-800 rounded py-1 px-2 text-white"
+            className="flex gap-4 items-center rounded py-1 px-2 bg-secondary-light-bg dark:bg-accent-light transition-all"
             type="submit"
           >
             <p>Post</p>
@@ -90,24 +87,28 @@ const CommentsContent: React.FC<{
   comment: getALLCommentsQueryOutput[number];
 }> = (props) => {
   return (
-    <div className="py-4 px-8 gap-8 flex items-start bg-slate-900 mt-4 rounded">
-      <div className="align-middle">
-        <Image
-          layout="fixed"
-          width={40}
-          height={40}
-          className="rounded-full"
-          src={
-            props.comment.User.image
-              ? props.comment.User.image
-              : "https://storage.googleapis.com/cp_bucket_test/8KKpE4bnrgPr_BSjdodjBBS01657346517231.png"
-          }
-          alt="Main image"
-        />
-      </div>
-      <div>
-        <div className="font-semibold text-lg mb-4">{props.comment.User.name}</div>
-        <div>{props.comment.message}</div>
+    <div className="w-full flex items-center justify-center">
+      <div className="p-4 gap-8 w-full max-w-[955vw] flex items-start bg-light-hover dark:bg-dark-hover  mt-4 rounded">
+        <div className="align-middle">
+          <Image
+            layout="fixed"
+            width={40}
+            height={40}
+            className="rounded-full"
+            src={
+              props.comment.User.image
+                ? props.comment.User.image
+                : "https://storage.googleapis.com/cp_bucket_test/8KKpE4bnrgPr_BSjdodjBBS01657346517231.png"
+            }
+            alt="Main image"
+          />
+        </div>
+        <div className="">
+          <div className="font-semibold text-lg mb-2">
+            {props.comment.User.name}
+          </div>
+          <div className="">{props.comment.message}</div>
+        </div>
       </div>
     </div>
   );
