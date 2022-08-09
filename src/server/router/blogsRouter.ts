@@ -30,25 +30,43 @@ export const blogRouter = createRouter()
     }),
 
     async resolve({ input, ctx }) {
-      const result = await ctx.prisma.blog.findUnique({
-        where: {
-          id: input.blogId,
-        },
-        select: {
-          author: true,
-          description: true,
-          title: true,
-          id: true,
-          tags: true,
-          BlogContent: {
-            select: {
-              content: true,
-              headerImage: true,
-            },
+      try{
+        const result = await ctx.prisma.blog.findUnique({
+          where: {
+            id: input.blogId,
           },
-        },
-      });
-      return result;
+          select: {
+            author: true,
+            description: true,
+            title: true,
+            id: true,
+            tags: true,
+            BlogContent: {
+              select: {
+                content: true,
+                headerImage: true,
+              },
+            },
+            User: {
+              select: {
+                name: true,
+                image: true,
+              }
+            }
+          },
+        });
+        if(result !== null){
+          return result
+        }
+        throw new TRPCError({
+          code: 'NOT_FOUND',
+          message: 'Blog does not exist'
+        })
+
+      } catch(e) {
+        throw e;
+      }
+      
     },
   });
 

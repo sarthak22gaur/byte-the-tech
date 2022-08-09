@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import SocialBanner from "@/components/SocialBanner";
 
 import { createContext } from "@/server/router/context";
+import {BlogInfoCard} from '@/components/BlogInfo'
 
 import { appRouter } from "@/server/router";
 import superjson from "superjson";
@@ -75,9 +76,14 @@ const id = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
         <Navbar />
       </nav>
       <main className="h-full">
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex justify-center lg:justify-start">
           <Blog blog={props.blog} comments={props.comments} />
+ <div className="hidden lg:block"><BlogInfoCard blog={props.blog}/></div>
+          
+
+          
         </div>
+        
         
       </main>
       <footer><SocialBanner /></footer>

@@ -6,6 +6,8 @@ import remarkGfm from "remark-gfm";
 
 import { AiFillTags } from "react-icons/ai";
 
+import {BlogInfoCard} from '@/components/BlogInfo'
+
 import CommentsCard from "@/components/CommentsCard";
 
 type blogContent = inferQueryOutput<"blogs.getSingleBlog">;
@@ -21,7 +23,7 @@ const Blog: React.FC<{
     tags = props.blog.tags.split(",");
   }
   return (
-    <div className="w-full md:max-w-[70vw] flex flex-col justify-center gap-8 p-8">
+    <div className="w-full max-w-[85vw] md:max-w-[75vw] lg:max-w-[65vw] flex flex-col justify-center gap-8 p-8">
       <header className="flex flex-col justify-center shadow-lg items-center p-4">
         <div className="block w-full h-fit">
           <Image
@@ -64,10 +66,11 @@ const Blog: React.FC<{
           </ReactMarkdown>
         </article>
       </div>
+      
       <section className="flex flex-col text-justify shadow-lg p-8">
         <CommentsCard
           comments={props.comments}
-          blogId={props.blog?.id ? props.blog.id : "1234"}
+          blogId={props.blog?.id}
         />
       </section>
     </div>
