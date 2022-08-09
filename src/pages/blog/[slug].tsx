@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import SocialBanner from "@/components/SocialBanner";
 
 import { createContext } from "@/server/router/context";
-import {BlogInfoCard} from '@/components/BlogInfo'
+import { BlogInfoCard } from "@/components/BlogInfo";
 
 import { appRouter } from "@/server/router";
 import superjson from "superjson";
@@ -28,15 +28,12 @@ export const getStaticProps = async (
 
   const slug = context.params?.slug as string;
   const blog = await ssg.fetchQuery("blogs.getSingleBlog", { blogId: slug });
-  const comments = await ssg.fetchQuery("comment.getCommentsOnPost", {
-    blogId: slug,
-  });
+  
   return {
     props: {
       trpcState: ssg.dehydrate(),
       blog,
-      comments,
-      //   blogCont
+
     },
     revalidate: 20000,
   };
@@ -63,7 +60,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-const id = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+const slug = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <Head>
@@ -77,18 +74,17 @@ const id = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       </nav>
       <main className="h-full">
         <div className="flex justify-center lg:justify-start">
-          <Blog blog={props.blog} comments={props.comments} />
- <div className="hidden lg:block"><BlogInfoCard blog={props.blog}/></div>
-          
-
-          
+          <Blog blog={props.blog} />
+          <div className="hidden lg:block">
+            <BlogInfoCard blog={props.blog} />
+          </div>
         </div>
-        
-        
       </main>
-      <footer><SocialBanner /></footer>
+      <footer>
+        <SocialBanner />
+      </footer>
     </>
   );
 };
 
-export default id;
+export default slug;

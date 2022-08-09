@@ -16,9 +16,6 @@ export const BlogInfoCard: React.FC<{
   if (props.blog.tags && props.blog.tags !== "NULL") {
     tags = props.blog.tags.split(",");
   }
-
-  console.log(tags);
-
   return (
     <section className="w-full lg:fixed lg:max-w-[30vw] lg:right-0 gap-8 p-8 lg:mr-8 ">
       <div className="flex justify-start gap-4 h-min shadow-lg rounded items-center bg-secondary-light-bg dark:bg-secondary-dark-bg w-full border-2">

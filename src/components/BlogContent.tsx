@@ -15,7 +15,7 @@ type getALLCommentsQueryOutput = inferQueryOutput<"comment.getCommentsOnPost">;
 
 const Blog: React.FC<{
   blog: blogContent;
-  comments: getALLCommentsQueryOutput;
+  // comments: getALLCommentsQueryOutput;
 }> = (props) => {
   let tags: Array<string>;
   tags = [];
@@ -71,7 +71,7 @@ const Blog: React.FC<{
       
       <section className="flex flex-col shadow-lg p-2 sm:p-8">
         <CommentsCard
-          comments={props.comments}
+          // comments={props.comments}
           blogId={props.blog?.id}
         />
       </section>

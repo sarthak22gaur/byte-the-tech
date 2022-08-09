@@ -7,19 +7,22 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+
 import { IoLogoGoogle } from "react-icons/io5";
 
-type blogContent = inferQueryOutput<"blogs.getSingleBlog">;
 type getALLCommentsQueryOutput = inferQueryOutput<"comment.getCommentsOnPost">;
 
 const CommentsCard: React.FC<{
-  comments: getALLCommentsQueryOutput;
+  // comments: getALLCommentsQueryOutput;
   blogId: string;
 }> = (props) => {
+
+  const {data: comments, error} = trpc.useQuery(['comment.getCommentsOnPost', {blogId: props.blogId}] )
+
   return (
     <>
       <CommentForm id={props.blogId} />
-      {props.comments.map((curr, index) => {
+      {comments && comments.map((curr, index) => {
         return <CommentsContent comment={curr} key={index} />;
       })}
     </>
