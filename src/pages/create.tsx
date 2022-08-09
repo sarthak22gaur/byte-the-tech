@@ -18,9 +18,6 @@ const Create: NextPage = () => {
   };
   const { handleSubmit, register } = useForm<createBlog>();
   type createBlog = inferMutationInput<"blogsSecure.createBlog">;
-
-  // const selectedTags = tags => console.log(tags);
-
   /*
     Complete onSuccess and onError
   */

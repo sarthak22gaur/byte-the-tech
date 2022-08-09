@@ -19,7 +19,7 @@ const Navbar = () => {
     <nav className="sticky w-full flex items-center justify-center top-0 z-10 border-b-2 bg-secondary-light-bg dark:bg-secondary-dark-bg">
       <div className={tw_Navbar}>
         <Link href="/">
-          <i className="cursor-pointer font-bold font-['dancing_script']">BTT</i>
+          <p className="cursor-pointer font-bold font-['dancing_script']">BTT</p>
         </Link>
         <ul className="flex">
           <li className={tw_NavbarLinks}>

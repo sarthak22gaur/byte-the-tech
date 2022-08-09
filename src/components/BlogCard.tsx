@@ -17,11 +17,10 @@ export const BlogCard: React.FC<{
     tags = props.blog.tags.split(",");
   }
 
-  console.log(tags);
 
   return (
     <Link href={`/blog/${props.blog.id}`}>
-      <div className="flex flex-col group gap-4 justify-between cursor-pointer sm:hover:scale-105 sm:hover:bg-light-hover sm:dark:hover:bg-dark-hover transition-all p-4 text-justify shadow-md rounded">
+      <div className="flex flex-col group gap-4 justify-between cursor-pointer sm:hover:scale-105 sm:hover:bg-light-hover sm:dark:hover:bg-dark-hover transition-all p-4 shadow-md rounded">
         <div>
           <div className="text-2xl pb-4 font-bold dark:text-secondary-dark text-secondary-light group-hover:text-accent-light transition-colors">
             {props.blog.title}

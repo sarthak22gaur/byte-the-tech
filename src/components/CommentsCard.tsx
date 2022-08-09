@@ -86,15 +86,16 @@ const CommentForm: React.FC<{
     );
   }
   return (
-
-      <p className="p-4 flex items-center justify-center gap-4">
-        <span>Wanna share your thoughts?</span>
-        <button className="flex items-center gap-2 bg-light-hover hover:scale-105 hover:bg-secondary-light-bg px-2 py-1 dark:hover:bg-accent-light rounded transition-all" onClick={() => signIn()}>
-          <span>Login here</span>
-          <IoLogoGoogle />
-        </button>
-      </p>
-
+    <p className="p-2 sm:p-4 flex items-center justify-center gap-2 sm:gap-4">
+      <button
+        className="flex items-center gap-2 bg-secondary-light-bg dark:bg-accent-light lg:dark:bg-secondary-dark-bg lg:bg-light-hover lg:hover:scale-105 lg:hover:bg-secondary-light-bg px-2 py-1 lg:dark:hover:bg-accent-light rounded lg:transition-all"
+        onClick={() => signIn()}
+      >
+        <IoLogoGoogle />
+        <p className="text-sm sm:text-base">Login here</p>
+      </button>
+      <p className="text-sm sm:text-base">to share your thoughts</p>
+    </p>
   );
 };
 
@@ -118,11 +119,13 @@ const CommentsContent: React.FC<{
             alt="Main image"
           />
         </div>
-        <div className="">
-          <div className="font-semibold text-lg mb-2">
+        <div>
+          <div className="font-semibold text-base md:text-lg lg:text-xl mb-2">
             {props.comment.User.name}
           </div>
-          <p className="">{props.comment.message}</p>
+          <p className="text-sm md:text-base lg:text-lg">
+            {props.comment.message}
+          </p>
         </div>
       </div>
     </div>
