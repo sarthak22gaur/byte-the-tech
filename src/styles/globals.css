@@ -10,7 +10,7 @@
     font-family: 'Fira Sans Condensed', sans-serif;
   }
   body {
-    @apply h-full;
+    @apply h-screen;
     @apply bg-primary-light-bg dark:bg-primary-dark-bg
 }
     h1 {
