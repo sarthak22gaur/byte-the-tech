@@ -1,9 +1,5 @@
 import { inferQueryOutput } from "@/utils/trpc";
-import { MdBluetoothSearching } from "react-icons/md";
-import Link from "next/link";
 import Image from "next/image";
-import { IoArrowRedoSharp } from "react-icons/io5";
-import { TiArrowRightOutline } from "react-icons/ti";
 
 type blogContent = inferQueryOutput<"blogs.getSingleBlog">;
 
