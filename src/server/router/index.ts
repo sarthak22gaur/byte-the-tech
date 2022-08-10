@@ -3,7 +3,6 @@ import { createRouter } from "./context";
 import superjson from "superjson";
 
 import { blogRouter, blogRouterSecure } from "./blogsRouter";
-import { protectedExampleRouter } from "./protected-example-router";
 import {commentRouter, commentRouterSecure} from '@/server/router/commentRouter'
 
 export const appRouter = createRouter()

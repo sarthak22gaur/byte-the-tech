@@ -6,7 +6,7 @@ import remarkGfm from "remark-gfm";
 
 import { AiFillTags } from "react-icons/ai";
 
-import {BlogInfoCard} from '@/components/BlogInfo'
+import { BlogInfoCard } from "@/components/BlogInfo";
 
 import CommentsCard from "@/components/CommentsCard";
 
@@ -67,8 +67,8 @@ const Blog: React.FC<{
         </article>
       </div>
 
-      <BlogInfoCard blog={props.blog}/>
-      
+      <BlogInfoCard blog={props.blog} />
+
       <section className="flex flex-col shadow-lg p-2 sm:p-8">
         <CommentsCard
           // comments={props.comments}

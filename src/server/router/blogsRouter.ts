@@ -55,7 +55,7 @@ export const blogRouter = createRouter()
             }
           },
         });
-        if(result !== null){
+        if(result){
           return result
         }
         throw new TRPCError({

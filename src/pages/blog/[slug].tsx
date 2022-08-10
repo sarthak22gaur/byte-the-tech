@@ -14,7 +14,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
-
+import { trpc, inferMutationInput, inferQueryOutput } from "@/utils/trpc";
 import Blog from "@/components/BlogContent";
 
 export const getStaticProps = async (
@@ -28,12 +28,19 @@ export const getStaticProps = async (
 
   const slug = context.params?.slug as string;
   const blog = await ssg.fetchQuery("blogs.getSingleBlog", { blogId: slug });
-  
+
+  // if (!blog) {
+  //   return {
+  //     redirect: {
+  //       destination: "/",
+  //     },
+  //   }
+  // }
+
   return {
     props: {
       trpcState: ssg.dehydrate(),
       blog,
-
     },
     revalidate: 20000,
   };
@@ -56,7 +63,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
       },
     })),
     // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking
-    fallback: "blocking",
+    fallback: false,
   };
 };
 
