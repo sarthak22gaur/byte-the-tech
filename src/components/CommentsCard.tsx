@@ -1,4 +1,3 @@
-import type { NextPage } from "next";
 import { IoSend } from "react-icons/io5";
 import Image from "next/image";
 
@@ -6,7 +5,6 @@ import { trpc, inferMutationInput, inferQueryOutput } from "@/utils/trpc";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
 
 import { IoLogoGoogle } from "react-icons/io5";
 
@@ -16,15 +14,18 @@ const CommentsCard: React.FC<{
   // comments: getALLCommentsQueryOutput;
   blogId: string;
 }> = (props) => {
-
-  const {data: comments, error} = trpc.useQuery(['comment.getCommentsOnPost', {blogId: props.blogId}] )
+  const { data: comments, error } = trpc.useQuery([
+    "comment.getCommentsOnPost",
+    { blogId: props.blogId },
+  ]);
 
   return (
     <>
       <CommentForm id={props.blogId} />
-      {comments && comments.map((curr, index) => {
-        return <CommentsContent comment={curr} key={index} />;
-      })}
+      {comments &&
+        comments.map((curr, index) => {
+          return <CommentsContent comment={curr} key={index} />;
+        })}
     </>
   );
 };
@@ -35,12 +36,11 @@ const CommentForm: React.FC<{
   const { data: session, status } = useSession();
   type createComment = inferMutationInput<"commentSecure.createCommentOnPost">;
 
+  const [comment, setComment] = useState("");
+
   const { handleSubmit, register } = useForm<createComment>();
 
-  /*
-      Complete onSuccess and onError
-    */
-
+  // TODO: Implement onSuccess and onError;
   const { mutate, error } = trpc.useMutation(
     ["commentSecure.createCommentOnPost"],
     {
@@ -49,7 +49,10 @@ const CommentForm: React.FC<{
     }
   );
 
+  // TODO: Add alert modal after comment posts
+
   const onFormSave = (data: { message: string }) => {
+    setComment('');
     if (session && session.user && session.user.id && session.user.name) {
       mutate({
         message: data.message,
@@ -59,6 +62,8 @@ const CommentForm: React.FC<{
       });
     }
   };
+
+  // TODO: Add comment deletion options
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -72,7 +77,11 @@ const CommentForm: React.FC<{
           id="message"
           placeholder="What are your thoughts..?"
           rows={3}
+          value={comment}
           {...register("message")}
+          onChange={(e) => {
+            setComment(e.target.value);
+          }}
           required
         />
 

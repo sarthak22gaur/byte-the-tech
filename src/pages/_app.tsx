@@ -1,6 +1,5 @@
 // src/pages/_app.tsx
 import { withTRPC } from "@trpc/next";
-import { DefaultSeo } from 'next-seo';
 import type { AppRouter } from "../server/router";
 import type { AppType } from "next/dist/shared/lib/utils";
 import superjson from "superjson";
@@ -17,8 +16,6 @@ const MyApp: AppType = ({
   return (
     <SessionProvider session={session}>
       <ThemeProvider attribute="class">
-      {/* <DefaultSeo {...SEO} />
-       */}
        <Seo />
         <Component {...pageProps} />
       </ThemeProvider>

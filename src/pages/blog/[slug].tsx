@@ -49,6 +49,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const allBlogs = await ssg.fetchQuery("blogs.getAllBlog");
 
+  // FIXME: Fix the URL to show title instead of slug ID
   return {
     paths: allBlogs.map((blog) => ({
       params: {

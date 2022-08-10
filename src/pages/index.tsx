@@ -23,6 +23,7 @@ export const getStaticProps = async () => {
     transformer: superjson,
   });
 
+  // FIXME: Error on recieving dates (not serializing when returning from server)
   const allBlogs = await ssg.fetchQuery("blogs.getAllBlog");
 
   return {
