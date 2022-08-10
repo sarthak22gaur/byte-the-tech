@@ -11,21 +11,18 @@ import { useForm } from "react-hook-form";
 
 const Create: NextPage = () => {
   const { data: session, status } = useSession();
-
   const [markdownText, setMarkdownText] = useState("");
   const editorCtx = {
     markdownText,
     setMarkdownText,
   };
-
   const { handleSubmit, register } = useForm<createBlog>();
-  type createBlog = inferMutationInput<"blogs.createBlog">;
-
+  type createBlog = inferMutationInput<"blogsSecure.createBlog">;
   /*
     Complete onSuccess and onError
   */
 
-  const { mutate, error } = trpc.useMutation(["blogs.createBlog"], {
+  const { mutate, error } = trpc.useMutation(["blogsSecure.createBlog"], {
     onError: (error) => {},
     onSuccess: () => {},
   });
@@ -37,6 +34,7 @@ const Create: NextPage = () => {
       headimage: data.headimage,
       author: data.author,
       content: markdownText,
+      tags: data.tags,
     });
   };
 
@@ -44,7 +42,7 @@ const Create: NextPage = () => {
     return <div>Loading...</div>;
   }
 
-  if (session?.role) {
+  if (session?.role === "MEMBER") {
     return (
       <DefaultEditorContext.Provider value={editorCtx}>
         <Navbar />
@@ -87,7 +85,7 @@ const Create: NextPage = () => {
                 <input
                   className="p-2"
                   type="url"
-                  id="description"
+                  id="headimage"
                   {...register("headimage")}
                   placeholder="Header image url"
                   required
@@ -98,13 +96,25 @@ const Create: NextPage = () => {
                 <input
                   className="p-2"
                   type="text"
-                  id="description"
+                  id="author"
                   {...register("author")}
                   placeholder="Author Name"
                   required
                 />
+                <label className="my-2" htmlFor="tags">
+                  Tags
+                </label>
+                <input
+                  className="p-2"
+                  type="text"
+                  id="tags"
+                  {...register("tags")}
+                  placeholder="Add tags as comma seperated values(max: 3)"
+                  required
+                />
               </div>
-              <div className="">
+
+              <div className="p-2 my-4 border-2 border-cyan-700 rounded w-fit">
                 <button type="submit">Save</button>
               </div>
             </div>
