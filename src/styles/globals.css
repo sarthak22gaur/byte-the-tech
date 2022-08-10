@@ -9,6 +9,10 @@
   html {
     font-family: 'Fira Sans Condensed', sans-serif;
   }
+  body {
+    @apply h-full;
+    @apply bg-primary-light-bg dark:bg-primary-dark-bg
+}
     h1 {
       @apply text-2xl;
     }
@@ -27,11 +31,11 @@
     #__next {
         @apply h-full;
     }
-    html,
+    /* html,
     body {
-        /* @apply h-full; */
+        @apply h-full;
         @apply bg-primary-light-bg dark:bg-primary-dark-bg
-    }
+    } */
 }
   
 
