@@ -3,7 +3,7 @@ import Head from "next/head";
 import Navbar from "@/components/Navbar";
 import SocialBanner from "@/components/SocialBanner";
 
-import Seo from '@/components/SEO'
+import Seo from "@/components/SEO";
 
 import { createContext } from "@/server/router/context";
 import { BlogInfoCard } from "@/components/BlogInfo";
@@ -16,7 +16,7 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
-import { NextSeo } from 'next-seo';
+import { NextSeo } from "next-seo";
 import Blog from "@/components/BlogContent";
 
 export const getStaticProps = async (
@@ -29,12 +29,15 @@ export const getStaticProps = async (
   });
 
   const slug = context.params?.slug as string;
-  const blog = await ssg.fetchQuery("blogs.getSingleBlog", { blogId: slug });
+  // const blog = await ssg.fetchQuery("blogs.getSingleBlog", { blogId: slug });
+  const contentfulBlogs = await ssg.fetchQuery("blogs.getSingleContent", {
+    blogId: slug,
+  });
 
   return {
     props: {
       trpcState: ssg.dehydrate(),
-      blog,
+      contentfulBlogs,
     },
     revalidate: 20000,
   };
@@ -47,13 +50,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
     transformer: superjson,
   });
 
-  const allBlogs = await ssg.fetchQuery("blogs.getAllBlog");
+  // const allBlogs = await ssg.fetchQuery("blogs.getAllBlog");
+  const contentfulBlogs = await ssg.fetchQuery("blogs.getDataFromContentful");
 
   // FIXME: Fix the URL to show title instead of slug ID
   return {
-    paths: allBlogs.map((blog) => ({
+    paths: contentfulBlogs.items.map((blog) => ({
       params: {
-        slug: blog.id,
+        slug: blog.sys.id,
       },
     })),
     // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking
@@ -62,20 +66,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 const slug = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
-
   return (
     <>
-    
-
       <nav>
         <Navbar />
       </nav>
       <main className="h-full">
         <div className="flex justify-center lg:justify-start">
-          <Blog blog={props.blog} />
-          <div className="hidden lg:block">
+          <Blog blog={props.contentfulBlogs} />
+          {/* <div className="hidden lg:block">
             <BlogInfoCard blog={props.blog} />
-          </div>
+          </div> */}
         </div>
       </main>
       <footer>

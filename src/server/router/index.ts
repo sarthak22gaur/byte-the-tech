@@ -2,7 +2,7 @@
 import { createRouter } from "./context";
 import superjson from "superjson";
 
-import { blogRouter, blogRouterSecure } from "./blogsRouter";
+import { blogRouter } from "./blogsRouter";
 import {commentRouter, commentRouterSecure} from '@/server/router/commentRouter'
 
 export const appRouter = createRouter()
@@ -10,7 +10,7 @@ export const appRouter = createRouter()
   .merge("blogs.", blogRouter)
   .merge('comment.', commentRouter)
   .merge('commentSecure.', commentRouterSecure)
-  .merge('blogsSecure.', blogRouterSecure)
+
 
 // export type definition of API
 export type AppRouter = typeof appRouter;

@@ -14,7 +14,7 @@ function defineNextConfig(config) {
 
 export default defineNextConfig({
   images: {
-    domains: ['storage.googleapis.com', 'lh3.googleusercontent.com'],
+    domains: ['storage.googleapis.com', 'lh3.googleusercontent.com', 'images.ctfassets.net'],
   },
   reactStrictMode: true,
   swcMinify: true,

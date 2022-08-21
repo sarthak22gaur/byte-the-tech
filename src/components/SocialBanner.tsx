@@ -6,7 +6,7 @@ const SocialBanner = () => {
 
   // TODO: Make component for individual banner icon
   return (
-    <nav className="md:fixed w-full md:w-fit md:bottom-0 md:right-0 py-8 px-8 z-10">
+    <nav className="hidden fixed w-full md:w-fit bottom-0 md:right-0 py-8 px-8 z-10">
       <div className="flex justify-center md:grid gap-4">
         <Link  href="https://github.com/sarthak22gaur">
           <div className="cursor-pointer lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
