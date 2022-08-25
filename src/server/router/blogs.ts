@@ -5,8 +5,6 @@ import { TRPCError } from "@trpc/server";
 import { createRouter } from "./context";
 import { createProtectedRouter } from "./protected-router";
 import contentfulClient from "@/utils/contentful";
-import { env } from "@/env/server.mjs";
-import type { TypeBlog } from "@/types/contentful-types";
 import type { TypeBlogFields } from "@/types/contentful-types";
 import { seed } from "@/utils/seed";
 
@@ -23,7 +21,10 @@ export const blogRouter = createRouter()
 
         contentfulData.items.map(async (curr) => {
           if (!curr.fields.dbSeed) {
-            await seed(curr.sys.id);
+            setTimeout(async () => {
+              await seed(curr.sys.id);
+            }, 1000)
+            
           }
         });
         return contentfulData;

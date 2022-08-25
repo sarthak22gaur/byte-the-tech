@@ -2,18 +2,13 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-import { AiFillTags } from "react-icons/ai";
-
 import { BlogInfoCard } from "@/components/blog/BlogInfo";
 import CommentsCard from "@/components/CommentsCard";
 import { inferQueryOutput } from "@/utils/trpc";
 import type { TypeBlog } from "@/types/contentful-types";
 
-type getALLCommentsQueryOutput = inferQueryOutput<"comment.getCommentsOnPost">;
-
 const Blog: React.FC<{
   blog: TypeBlog;
-  // comments: getALLCommentsQueryOutput;
 }> = (props) => {
   return (
     <div className="w-full md:max-w-[75vw] lg:max-w-[65vw] flex flex-col justify-center gap-8 p-8">

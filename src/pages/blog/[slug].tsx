@@ -28,9 +28,9 @@ export const getStaticProps = async (
     blogSlug: slug,
   });
 
+  // TODO: error handler
   if(!blog) {
     throw new Error('')
-
   }
   return {
     props: {
