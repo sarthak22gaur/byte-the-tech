@@ -12,19 +12,23 @@ export const blogRouter = createRouter()
   .query("getAllBlogs", {
     async resolve({ input, ctx }) {
       try {
-        const contentfulData =
-          await contentfulClient.getEntries<TypeBlogFields>({
-            content_type: "blog",
-            select:
-              "fields.heroImage,fields.title,fields.blogTags,fields.blogDescription,fields.blogAuthor,fields.dbSeed,fields.slug",
-          });
+        const entries = await contentfulClient.getEntries<TypeBlogFields>({
+          content_type: "blog",
+          select:
+            "fields.heroImage,fields.title,fields.blogTags,fields.blogDescription,fields.blogAuthor,fields.dbSeed,fields.slug",
+        });
 
-        contentfulData.items.map(async (curr) => {
-          if (!curr.fields.dbSeed) {
-            await seed(curr.sys.id);            
+        entries.items.map(async (curr) => {
+          const blogFromDB = await ctx.prisma.blog.findUnique({
+            where: {
+              contentfulBlogId: curr.sys.id,
+            },
+          });
+          if (!blogFromDB) {
+            await seed(curr.sys.id, curr.fields.title);
           }
         });
-        return contentfulData;
+        return entries;
       } catch (e) {
         if (e instanceof TRPCError) {
           throw e;
@@ -66,15 +70,13 @@ export const blogRouter = createRouter()
               message: "Blog already exists",
             });
           }
-        // } else if (e instanceof TRPCError) {
-        //   throw e;
-        // }
-        // throw new TRPCError({
-        //   code: "INTERNAL_SERVER_ERROR",
-        //   message: "Something went wrong",
-        // });
+        } else if (e instanceof TRPCError) {
+          throw e;
         }
-        throw e;
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Something went wrong",
+        });
       }
     },
   });

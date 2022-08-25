@@ -7,34 +7,24 @@ import { env } from "@/env/server.mjs";
 
 import type { TypeBlogFields } from "@/types/contentful-types";
 
-export const seed = async (id: string) => {
+export const seed = async (id: string, slug: string) => {
   try {
-    const space = await cfManagementClient.getSpace(env.CONTENTFUL_SPACE_ID);
-    const environment = await space.getEnvironment('master');
-    const entry = await environment.getEntry(id);
-    const slug = entry.fields.title["en-US"];
-    const result = await entry.patch([
-      {
-        op: "replace",
-        path: "/fields/dbSeed/en-US",
-        value: true,
-      },
-    ]);
-    await result.publish();
-
-    // const entry = await contentfulClient.getEntry<TypeBlogFields>(
-    //   id,
+    // const space = await cfManagementClient.getSpace(env.CONTENTFUL_SPACE_ID);
+    // const environment = await space.getEnvironment('master');
+    // const entry = await environment.getEntry(id);
+    // const slug = entry.fields.title["en-US"];
+    // const result = await entry.patch([
     //   {
-    //     content_type: "blog",
-    //     select:
-    //       "sys.id,fields.heroImage,fields.title,fields.blogTags,fields.blogDescription,fields.blogAuthor,fields.blogContent,fields.slug",
-    //   }
-    // );
-    // const slug = entry.fields.title;
+    //     op: "replace",
+    //     path: "/fields/dbSeed/en-US",
+    //     value: true,
+    //   },
+    // ]);
+    // await result.publish();
 
     await prisma.blog.create({
       data: {
-        contentfulBlogId: entry.sys.id,
+        contentfulBlogId: id,
         blogSlug: slug.trim().toLowerCase().replace(/[ ,]+/g, "-"),
       },
     });
