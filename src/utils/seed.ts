@@ -2,8 +2,10 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { TRPCError } from "@trpc/server";
 
 import { prisma } from "@/server/db/client";
-import { cfManagementClient } from "@/utils/contentful";
+import contentfulClient, { cfManagementClient } from "@/utils/contentful";
 import { env } from "@/env/server.mjs";
+
+import type { TypeBlogFields } from "@/types/contentful-types";
 
 export const seed = async (id: string) => {
   try {
@@ -19,6 +21,16 @@ export const seed = async (id: string) => {
       },
     ]);
     await result.publish();
+
+    // const entry = await contentfulClient.getEntry<TypeBlogFields>(
+    //   id,
+    //   {
+    //     content_type: "blog",
+    //     select:
+    //       "sys.id,fields.heroImage,fields.title,fields.blogTags,fields.blogDescription,fields.blogAuthor,fields.blogContent,fields.slug",
+    //   }
+    // );
+    // const slug = entry.fields.title;
 
     await prisma.blog.create({
       data: {

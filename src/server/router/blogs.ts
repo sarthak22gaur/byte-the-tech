@@ -21,10 +21,7 @@ export const blogRouter = createRouter()
 
         contentfulData.items.map(async (curr) => {
           if (!curr.fields.dbSeed) {
-            setTimeout(async () => {
-              await seed(curr.sys.id);
-            }, 1000)
-            
+            await seed(curr.sys.id);            
           }
         });
         return contentfulData;
@@ -69,13 +66,15 @@ export const blogRouter = createRouter()
               message: "Blog already exists",
             });
           }
-        } else if (e instanceof TRPCError) {
-          throw e;
+        // } else if (e instanceof TRPCError) {
+        //   throw e;
+        // }
+        // throw new TRPCError({
+        //   code: "INTERNAL_SERVER_ERROR",
+        //   message: "Something went wrong",
+        // });
         }
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "Something went wrong",
-        });
+        throw e;
       }
     },
   });
