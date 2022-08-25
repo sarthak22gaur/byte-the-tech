@@ -20,10 +20,10 @@ export const serverSchema = z.object({
   MAILTRAP_PASS: z.string(),
   MAILTRAP_SENDER: z.string(),
   CONTENTFUL_SPACE_ID: z.string(),
-  CONTENTFUL_API_KEY: z.string(),
+  CONTENTFUL_DELIVERY_API_KEY: z.string(),
   CONTENTFUL_BLOG_ID: z.string(),
   CONTENTFUL_PERSONAL_ACCESS_TOKEN: z.string(),
-
+  CONTENTFUL_ENVIRONMENT: z.string(),
 });
 
 /**

@@ -1,26 +1,14 @@
-import { inferQueryOutput } from "@/utils/trpc";
-import { MdBluetoothSearching } from "react-icons/md";
 import Link from "next/link";
-
-import { IoArrowRedoSharp } from "react-icons/io5";
-import {TiArrowRightOutline} from 'react-icons/ti'
+import { TiArrowRightOutline } from "react-icons/ti";
 import type { TypeBlog } from "@/types/contentful-types";
-
-// type allBlogsType = TypeBlog
 
 export const BlogCard: React.FC<{
   blog: TypeBlog;
 }> = (props) => {
-  // let tags: Array<string>;
-
-  // tags = [];
-  // if (props.blog.tags && props.blog.tags !== "NULL") {
-  //   tags = props.blog.tags.split(",");
-  // }
-
-
+  const title = props.blog.fields.title;
+  const slug = title.trim().toLowerCase().replace(/[ ,]+/g, "-");
   return (
-    <Link href={`/blog/${props.blog.sys.id}`}>
+    <Link href={`/blog/${slug}`}>
       <div className="flex flex-col group gap-4 justify-between cursor-pointer sm:hover:scale-105 sm:hover:bg-light-hover sm:dark:hover:bg-dark-hover transition-all p-4 shadow-md rounded">
         <div>
           <div className="text-2xl pb-4 font-bold dark:text-secondary-dark text-secondary-light group-hover:text-accent-light transition-colors">
@@ -48,7 +36,9 @@ export const BlogCard: React.FC<{
         <div className="flex items-center justify-between">
           <div className="text-lg font-light">
             Author:{" "}
-            <span className="font-bold font-['Dancing_Script']">{props.blog.fields.blogAuthor.fields.authorName}</span>
+            <span className="font-bold font-['Dancing_Script']">
+              {props.blog.fields.blogAuthor.fields.authorName}
+            </span>
           </div>
           <div className="group-hover:text-accent-light transition-all">
             <TiArrowRightOutline size="28" />

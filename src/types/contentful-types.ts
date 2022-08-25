@@ -10,6 +10,7 @@ export type TypeAuthor = Contentful.Entry<TypeAuthorFields>;
 export interface TypeBlogFields {
     heroImage: Contentful.Asset;
     title: Contentful.EntryFields.Symbol;
+    slug: Contentful.EntryFields.Symbol;
     blogDescription: Contentful.EntryFields.Symbol;
     blogContent: Contentful.EntryFields.Text;
     blogTags: Contentful.EntryFields.Symbol[];

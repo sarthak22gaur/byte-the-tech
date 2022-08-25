@@ -1,18 +1,12 @@
-import { inferQueryOutput } from "@/utils/trpc";
 import Image from "next/image";
 
-type blogContent = inferQueryOutput<"blogs.getSingleBlog">;
+import type { TypeBlog } from "@/types/contentful-types";
 
 export const BlogInfoCard: React.FC<{
-  blog: blogContent;
+  blog: TypeBlog;
 }> = (props) => {
-  let tags: Array<string>;
 
-  tags = [];
-  if (props.blog.tags && props.blog.tags !== "NULL") {
-    tags = props.blog.tags.split(",");
-  }
-
+ 
   // TODO: Add createdAt and updatedAt data.
   // TODO: Add sharing options for social media
   return (
@@ -25,9 +19,7 @@ export const BlogInfoCard: React.FC<{
             height={50}
             className="rounded"
             src={
-              props.blog?.User?.image
-                ? props.blog?.User?.image
-                : "https://storage.googleapis.com/cp_bucket_test/8KKpE4bnrgPr_BSjdodjBBS01657346517231.png"
+              "https:" + props.blog.fields.blogAuthor.fields.authorProfleImage.fields.file.url
             }
             alt="Main image"
           />
@@ -36,7 +28,7 @@ export const BlogInfoCard: React.FC<{
         <div className="pr-4">
           <p className="pt-2 font-light text-md">Author</p>
           <p className="font-['dancing_script'] pb-2 font-bold text-2xl">
-            {props.blog.author}
+            {props.blog.fields.blogAuthor.fields.authorName}
           </p>
         </div>
       </div>

@@ -18,9 +18,10 @@ datasource db {
 }
 
 model Blog {
-  id          String        @id @default(cuid())
-  contentfulBlogId String     @unique
-  comments    Comment[]
+  id               String    @id @default(cuid())
+  contentfulBlogId String    @unique
+  blogSlug        String    @unique
+  comments         Comment[]
 }
 
 model Comment {
@@ -32,6 +33,11 @@ model Comment {
   userId    String
   Blog      Blog     @relation(fields: [blogId], references: [contentfulBlogId])
   blogId    String
+
+  children Comment[] @relation("comment_children")
+  parent   Comment?  @relation("comment_children", fields: [parentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  parentId String?
+
 }
 
 // Necessary for Next auth

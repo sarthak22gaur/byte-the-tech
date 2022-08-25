@@ -1,14 +1,3 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Navbar from "@/components/Navbar";
-import SocialBanner from "@/components/SocialBanner";
-
-import Seo from "@/components/SEO";
-
-import { createContext } from "@/server/router/context";
-import { BlogInfoCard } from "@/components/BlogInfo";
-
-import { appRouter } from "@/server/router";
 import superjson from "superjson";
 import { createSSGHelpers } from "@trpc/react/ssg";
 import {
@@ -16,8 +5,14 @@ import {
   GetStaticPropsContext,
   InferGetStaticPropsType,
 } from "next";
-import { NextSeo } from "next-seo";
-import Blog from "@/components/BlogContent";
+
+import { appRouter } from "@/server/router";
+import Navbar from "@/components/Navbar";
+import SocialBanner from "@/components/SocialBanner";
+import Seo from "@/components/SEO";
+import { createContext } from "@/server/router/context";
+import { BlogInfoCard } from "@/components/blog/BlogInfo";
+import Blog from "@/components/blog/BlogContent";
 
 export const getStaticProps = async (
   context: GetStaticPropsContext<{ slug: string }>
@@ -29,18 +24,23 @@ export const getStaticProps = async (
   });
 
   const slug = context.params?.slug as string;
-  // const blog = await ssg.fetchQuery("blogs.getSingleBlog", { blogId: slug });
-  const contentfulBlogs = await ssg.fetchQuery("blogs.getSingleContent", {
-    blogId: slug,
+  const blog = await ssg.fetchQuery("blogs.getSingleBlog", {
+    blogSlug: slug,
   });
 
+  if(!blog) {
+    throw new Error('')
+
+  }
   return {
     props: {
       trpcState: ssg.dehydrate(),
-      contentfulBlogs,
+      blog,
     },
     revalidate: 20000,
   };
+
+  
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -50,17 +50,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
     transformer: superjson,
   });
 
-  // const allBlogs = await ssg.fetchQuery("blogs.getAllBlog");
-  const contentfulBlogs = await ssg.fetchQuery("blogs.getDataFromContentful");
+// TODO: Add better error messages
+    const allBlogs = await ssg.fetchQuery("blogs.getAllBlogs");  
+    if(!allBlogs) {
+      throw new Error('')
+    }
 
-  // FIXME: Fix the URL to show title instead of slug ID
+  
   return {
-    paths: contentfulBlogs.items.map((blog) => ({
+    paths: allBlogs.items.map((blog) => ({
       params: {
-        slug: blog.sys.id,
+        slug: blog.fields.title.trim().toLowerCase().replace(/[ ,]+/g, "-")
       },
     })),
-    // https://nextjs.org/docs/basic-features/data-fetching#fallback-blocking
     fallback: false,
   };
 };
@@ -73,10 +75,10 @@ const slug = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
       </nav>
       <main className="h-full">
         <div className="flex justify-center lg:justify-start">
-          <Blog blog={props.contentfulBlogs} />
-          {/* <div className="hidden lg:block">
+          <Blog blog={props.blog} />
+          <div className="hidden lg:block">
             <BlogInfoCard blog={props.blog} />
-          </div> */}
+          </div>
         </div>
       </main>
       <footer>

@@ -1,15 +1,13 @@
+import Image from "next/image";
+import superjson from "superjson";
+import { InferGetStaticPropsType } from "next";
+
+import { BlogCard } from "@/components/blog/BlogCard";
 import Navbar from "@/components/Navbar";
 import SocialBanner from "@/components/SocialBanner";
-import Image from "next/image";
 import { createContext } from "../server/router/context";
 import { appRouter } from "../server/router";
-import superjson from "superjson";
 import { createSSGHelpers } from "@trpc/react/ssg";
-import {
-  InferGetStaticPropsType,
-} from "next";
-
-import { BlogCard } from "@/components/BlogCard";
 
 export const getStaticProps = async () => {
   const ssg = createSSGHelpers({
@@ -19,14 +17,17 @@ export const getStaticProps = async () => {
   });
 
   // FIXME: Error on recieving dates (not serializing when returning from server)
-  const contentfulBlogs = await ssg.fetchQuery("blogs.getDataFromContentful");
-  console.log(contentfulBlogs)
+  const allBlogs = await ssg.fetchQuery("blogs.getAllBlogs");
 
+  // TODO: Improve error handling
+  if(allBlogs === undefined) {
+    throw new Error('WHat is this')
+  }
 
   return {
     props: {
       trpcState: ssg.dehydrate(),
-      contentfulBlogs,
+      allBlogs,
     },
     revalidate: 20000,
   };
@@ -58,7 +59,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
         <div className="w-full flex justify-center items-center">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[80vw] py-8 m-8">
-            {props.contentfulBlogs.items.map((curr, index) => {
+            {props.allBlogs.items.map((curr, index) => {
               return <BlogCard blog={curr} key={index} />;
             })}
           </div>
