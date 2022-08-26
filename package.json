@@ -21,6 +21,7 @@
     "@types/react-tagsinput": "^3.19.9",
     "contentful": "^9.1.34",
     "contentful-management": "^10.12.0",
+    "grapheme-splitter": "^1.0.4",
     "markdown-it": "^13.0.1",
     "next": "^12.2.4-canary.9",
     "next-auth": "^4.10.3",
@@ -40,6 +41,8 @@
     "remark-gfm": "^3.0.1",
     "superjson": "^1.9.1",
     "tsparticles": "^2.1.4",
+    "typed.js": "^2.0.12",
+    "typewriter-effect": "^2.19.0",
     "zod": "^3.17.3"
   },
   "devDependencies": {
