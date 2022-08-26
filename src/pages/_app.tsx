@@ -7,7 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "next-themes";
 import "../styles/globals.css";
 
-import Seo from '@/components/SEO'
+import Seo from "@/components/SEO";
 
 const MyApp: AppType = ({
   Component,
@@ -16,7 +16,7 @@ const MyApp: AppType = ({
   return (
     <SessionProvider session={session}>
       <ThemeProvider attribute="class">
-       <Seo />
+        <Seo />
         <Component {...pageProps} />
       </ThemeProvider>
     </SessionProvider>

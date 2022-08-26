@@ -1,6 +1,10 @@
 import Image from "next/image";
 import superjson from "superjson";
-import { InferGetStaticPropsType } from "next";
+import {
+  InferGetStaticPropsType,
+  InferGetServerSidePropsType,
+  GetServerSidePropsContext,
+} from "next";
 
 import { BlogCard } from "@/components/blog/BlogCard";
 import Navbar from "@/components/Navbar";
@@ -8,32 +12,33 @@ import SocialBanner from "@/components/SocialBanner";
 import { createContext } from "../server/router/context";
 import { appRouter } from "../server/router";
 import { createSSGHelpers } from "@trpc/react/ssg";
+import { trpc } from "@/utils/trpc";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const ssg = createSSGHelpers({
     router: appRouter,
     ctx: await createContext(),
     transformer: superjson,
   });
 
-  // FIXME: Error on recieving dates (not serializing when returning from server)
-  const allBlogs = await ssg.fetchQuery("blogs.getAllBlogs");
+  await ssg.prefetchQuery("blogs.getAllBlogs");
 
-  // TODO: Improve error handling
-  if(allBlogs === undefined) {
-    throw new Error('WHat is this')
-  }
-
+  // TODO: error handler
   return {
     props: {
       trpcState: ssg.dehydrate(),
-      allBlogs,
     },
-    revalidate: 20000,
   };
 };
 
-const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Home = (
+  props: InferGetServerSidePropsType<typeof getServerSideProps>
+) => {
+  const allBlogs = trpc.useQuery(["blogs.getAllBlogs"]);
+  if (!allBlogs.data) {
+    return <div>Loading..</div>;
+  }
+
   return (
     <>
       <nav>
@@ -59,7 +64,7 @@ const Home = (props: InferGetStaticPropsType<typeof getStaticProps>) => {
 
         <div className="w-full flex justify-center items-center">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[80vw] py-8 m-8">
-            {props.allBlogs.items.map((curr, index) => {
+            {allBlogs.data.items.map((curr, index) => {
               return <BlogCard blog={curr} key={index} />;
             })}
           </div>
