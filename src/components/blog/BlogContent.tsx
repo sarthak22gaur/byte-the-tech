@@ -3,7 +3,7 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 import { BlogInfoCard } from "@/components/blog/BlogInfo";
-import CommentsCard from "@/components/CommentsCard";
+import Comments from "@/components/comment/Comments";
 import { inferQueryOutput } from "@/utils/trpc";
 import type { TypeBlog } from "@/types/contentful-types";
 
@@ -49,7 +49,7 @@ const Blog: React.FC<{
       <BlogInfoCard blog={props.blog} />
       
       <section className="flex flex-col shadow-lg p-2 sm:p-8">
-        <CommentsCard
+        <Comments
           blogId={props.blog.sys.id}
         />
       </section>
