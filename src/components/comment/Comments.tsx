@@ -1,4 +1,4 @@
-import { trpc, inferQueryOutput } from "@/utils/trpc";
+import { inferQueryOutput } from "@/utils/trpc";
 
 import CommentList from "@/components/comment/CommentList";
 import CommentLogin from "@/components/comment/CommentLogin";
@@ -14,7 +14,7 @@ const Comments: React.FC<{
   const { data: session, status } = useSession();
 
   return (
-    <>
+    <section className="flex flex-col w-full p-2 sm:p-8">
       {session && session.user && session.user.id && session.user.name ? (
         <CommentForm
           blogId={props.blogId}
@@ -25,7 +25,7 @@ const Comments: React.FC<{
         <CommentLogin />
       )}
       <CommentList blogId={props.blogId} />
-    </>
+    </section>
   );
 };
 

@@ -7,8 +7,8 @@ import Navbar from "@/components/Navbar";
 import SocialBanner from "@/components/SocialBanner";
 import Seo from "@/components/SEO";
 import { createContext } from "@/server/router/context";
-import { BlogInfoCard } from "@/components/blog/BlogInfo";
-import Blog from "@/components/blog/BlogContent";
+
+import Blog from "@/components/blog/Blog";
 import { trpc } from "@/utils/trpc";
 
 export const getServerSideProps = async (
@@ -47,20 +47,14 @@ const slug = (
 
   return (
     <>
-      <nav>
-        <Navbar />
-      </nav>
-      <main className="h-full">
-        <div className="flex justify-center lg:justify-start">
-          <Blog blog={data} />
-          <div className="hidden lg:block">
-            <BlogInfoCard blog={data} />
-          </div>
-        </div>
-      </main>
-      <footer>
+      <Navbar />
+      <div className="w-full flex flex-col items-center">
+        <Blog blog={data} />
+      </div>
+
+      {/* <footer>
         <SocialBanner />
-      </footer>
+      </footer> */}
     </>
   );
 };

@@ -58,7 +58,7 @@ export const blogRouter = createRouter()
           {
             content_type: "blog",
             select:
-              "fields.heroImage,fields.title,fields.blogTags,fields.blogDescription,fields.blogAuthor,fields.blogContent,fields.slug",
+              "sys.createdAt,fields.heroImage,fields.title,fields.blogTags,fields.blogDescription,fields.blogAuthor,fields.blogContent,fields.slug",
           }
         );
         return contenfulData;

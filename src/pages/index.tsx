@@ -6,7 +6,6 @@ import {
   GetServerSidePropsContext,
 } from "next";
 
-import { BlogCard } from "@/components/blog/BlogCard";
 import Navbar from "@/components/Navbar";
 import SocialBanner from "@/components/SocialBanner";
 import HomeHeader from "@/components/home/HomeHeader";

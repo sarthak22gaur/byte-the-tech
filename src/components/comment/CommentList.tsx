@@ -29,8 +29,8 @@ const CommentCard: React.FC<{
 }> = (props) => {
   return (
     <div className="w-full flex items-center justify-center">
-      <div className="p-4 gap-8 w-full max-w-[955vw] flex items-start bg-light-hover dark:bg-dark-hover  mt-4 rounded">
-        <div className="align-middle">
+      <div className="p-2 sm:p-4 gap-4 sm:gap-8 w-full max-w-[95vw] flex items-start bg-light-hover dark:bg-dark-hover mt-4 rounded">
+        <div className="">
           <Image
             layout="fixed"
             width={40}
@@ -44,7 +44,7 @@ const CommentCard: React.FC<{
             alt="Main image"
           />
         </div>
-        <div>
+        <div className="p-0">
           <div className="font-semibold text-base md:text-lg lg:text-xl mb-2">
             {props.comment.User.name}
           </div>

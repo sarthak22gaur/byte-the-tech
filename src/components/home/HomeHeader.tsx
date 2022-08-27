@@ -15,7 +15,7 @@ const optionsText = [
 
 const HomeHeader = () => {
   return (
-    <header className="w-full h-2/5 flex justify-center items-center bg-secondary-light-bg dark:bg-secondary-dark-bg">
+    <header className="w-full py-12 flex justify-center items-center bg-secondary-light-bg dark:bg-secondary-dark-bg">
       {/* <p className="absolute w-fit text-5xl sm:text-7xl lg:text-9xl text-white font-bold px-8">
       <TypeAnimate options={[... optionsText]} />
       </p> */}
