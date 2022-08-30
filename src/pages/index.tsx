@@ -15,36 +15,56 @@ import { appRouter } from "../server/router";
 import { createSSGHelpers } from "@trpc/react/ssg";
 import { trpc } from "@/utils/trpc";
 
-export const getServerSideProps = async () => {
-  const ssg = createSSGHelpers({
+// export const getServerSideProps = async () => {
+//   const ssg = createSSGHelpers({
+//     router: appRouter,
+//     ctx: await createContext(),
+//     transformer: superjson,
+//   });
+
+//   await ssg.prefetchQuery("blogs.getAllBlogs");
+
+//   // TODO: error handler
+//   return {
+//     props: {
+//       trpcState: ssg.dehydrate(),
+//     },
+//   };
+// };
+
+export const getStaticProps = async () => {
+    const ssg = createSSGHelpers({
     router: appRouter,
     ctx: await createContext(),
     transformer: superjson,
   });
 
-  await ssg.prefetchQuery("blogs.getAllBlogs");
+  const allBlogs = await ssg.fetchQuery("blogs.getAllBlogs");
 
   // TODO: error handler
   return {
     props: {
       trpcState: ssg.dehydrate(),
+      allBlogs,
     },
+    revalidate: 1,
   };
-};
+
+}
 
 const Home = (
-  props: InferGetServerSidePropsType<typeof getServerSideProps>
+  props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
-  const allBlogs = trpc.useQuery(["blogs.getAllBlogs"]);
-  if (!allBlogs.data) {
-    return <div>Loading..</div>;
-  }
+  // const allBlogs = trpc.useQuery(["blogs.getAllBlogs"]);
+  // if (!allBlogs.data) {
+  //   return <div>Loading..</div>;
+  // }
 
   return (
     <>
       <Navbar />
       <HomeHeader />
-      <HomeContent allBlogs={allBlogs.data} />
+      <HomeContent allBlogs={props.allBlogs} />
     </>
   );
 };
