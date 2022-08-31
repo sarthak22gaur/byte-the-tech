@@ -10,10 +10,12 @@ import { env } from "@/env/server.mjs";
 export const cmsRouter = createRouter().mutation("updateBlogEntryInDb", {
   async resolve({ input, ctx }) {
     try {
-      console.log("Secret");
-
       const secret = ctx.req?.headers["cms-hook-api-secret"];
       if (secret !== env.CMS_HOOK_API_SECRET) {
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: "Something went wrong",
+        });
       }
 
       const newTitle = ctx.req?.body.fields.title;
@@ -29,6 +31,10 @@ export const cmsRouter = createRouter().mutation("updateBlogEntryInDb", {
       });
 
       if (blogFromDb.blogSlug === slug) {
+        throw new TRPCError({
+          code: 'CONFLICT',
+          message: "Blog already exists",
+        });
       }
 
       const result = await ctx.prisma.blog.update({
