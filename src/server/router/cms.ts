@@ -7,7 +7,7 @@ import contentfulClient from "@/utils/contentful";
 import type { TypeBlogFields } from "@/types/contentful-types";
 import { env } from "@/env/server.mjs";
 
-export const cmsRouter = createRouter().query("updateBlogEntryInDb", {
+export const cmsRouter = createRouter().mutation("updateBlogEntryInDb", {
   async resolve({ input, ctx }) {
     try {
       console.log("Secret");
