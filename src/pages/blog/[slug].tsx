@@ -4,10 +4,8 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
 import { appRouter } from "@/server/router";
 import Navbar from "@/components/Navbar";
-import SocialBanner from "@/components/SocialBanner";
 import Seo from "@/components/SEO";
 import { createContext } from "@/server/router/context";
-
 import Blog from "@/components/blog/Blog";
 import { trpc } from "@/utils/trpc";
 
