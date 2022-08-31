@@ -10,17 +10,20 @@ import { env } from "@/env/server.mjs";
 export const cmsRouter = createRouter().mutation("updateBlogEntryInDb", {
   async resolve({ input, ctx }) {
     try {
-      const secret = ctx.req?.headers["cms-hook-api-secret"];
-      if (secret !== env.CMS_HOOK_API_SECRET) {
-        throw new TRPCError({
-          code: 'UNAUTHORIZED',
-          message: "Something went wrong",
-        });
-      }
+      const secret = await ctx.req?.headers["cms-hook-api-secret"];
+      console.log("Secret", secret);
+      // if (secret !== env.CMS_HOOK_API_SECRET) {
+      //   console.log('Inside if')
+      //   throw new TRPCError({
+      //     code: 'UNAUTHORIZED',
+      //     message: "Something went wrong",
+      //   });
+      // }
+      console.log("Req body", ctx.req?.body.fields.title['en-US']);
 
-      const newTitle = ctx.req?.body.fields.title;
-      const blogId = ctx.req?.body.sys.id;
-      const slug = newTitle.trim().toLowerCase().replace(/[ ,]+/g, "-");
+      const newTitle = await ctx.req?.body.fields.title['en-US'];
+      const blogId = await ctx.req?.body.sys.id;
+      const slug = await newTitle.trim().toLowerCase().replace(/[ ,]+/g, "-");
 
       console.log("Secret", secret);
 
@@ -29,6 +32,8 @@ export const cmsRouter = createRouter().mutation("updateBlogEntryInDb", {
           contentfulBlogId: blogId,
         },
       });
+
+      console.log(blogFromDb);
 
       if (blogFromDb.blogSlug === slug) {
         throw new TRPCError({
