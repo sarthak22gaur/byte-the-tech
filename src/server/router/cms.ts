@@ -12,13 +12,13 @@ export const cmsRouter = createRouter().mutation("updateBlogEntryInDb", {
     try {
       const secret = await ctx.req?.headers["cms-hook-api-secret"];
       console.log("Secret", secret);
-      // if (secret !== env.CMS_HOOK_API_SECRET) {
-      //   console.log('Inside if')
-      //   throw new TRPCError({
-      //     code: 'UNAUTHORIZED',
-      //     message: "Something went wrong",
-      //   });
-      // }
+      if (secret !== env.CMS_HOOK_API_SECRET) {
+        console.log('Inside if')
+        throw new TRPCError({
+          code: 'UNAUTHORIZED',
+          message: "Something went wrong",
+        });
+      }
       console.log("Req body", ctx.req?.body.fields.title['en-US']);
 
       const newTitle = await ctx.req?.body.fields.title['en-US'];
