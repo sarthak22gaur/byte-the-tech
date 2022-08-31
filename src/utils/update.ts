@@ -7,14 +7,16 @@ import { env } from "@/env/server.mjs";
 
 import type { TypeBlogFields } from "@/types/contentful-types";
 
-export const seed = async (id: string, slug: string) => {
+export const update = async (id: string, slug: string) => {
   try {
-    await prisma.blog.create({
-      data: {
-        contentfulBlogId: id,
-        blogSlug: slug.trim().toLowerCase().replace(/[ ,]+/g, "-"),
-      },
-    });
+    const result = await prisma.blog.update({
+        where: {
+          contentfulBlogId: id,
+        },
+        data: {
+          blogSlug: slug,
+        },
+      });
     
     return;
   } catch (e) {

@@ -7,6 +7,7 @@ import { createProtectedRouter } from "./protected-router";
 import contentfulClient from "@/utils/contentful";
 import type { TypeBlogFields } from "@/types/contentful-types";
 import { seed } from "@/utils/seed";
+import { update } from "@/utils/update";
 
 export const blogRouter = createRouter()
   .query("getAllBlogs", {
@@ -24,8 +25,16 @@ export const blogRouter = createRouter()
               contentfulBlogId: curr.sys.id,
             },
           });
+
+          const slug = curr.fields.title
+            .trim()
+            .toLowerCase()
+            .replace(/[ ,]+/g, "-");
+
           if (!blogFromDB) {
             await seed(curr.sys.id, curr.fields.title);
+          } else if (blogFromDB?.blogSlug !== slug) {
+            await update(curr.sys.id, slug);
           }
         });
         return entries;
