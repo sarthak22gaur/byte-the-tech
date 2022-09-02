@@ -1,8 +1,11 @@
+// Component imports
 import BlogHeader from "@/components/blog/BlogHeader";
 import BlogMarkdown from "@/components/blog/BlogMarkdown";
 import BlogCard from "@/components/blog/BlogCard";
 import Comments from "@/components/comment/Comments";
 
+
+// Type imports
 import type { TypeBlog } from "@/types/contentful-types";
 
 const Blog: React.FC<{

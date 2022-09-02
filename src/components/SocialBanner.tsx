@@ -1,5 +1,5 @@
+// Package imports
 import Link from "next/link";
-
 import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 
 const SocialBanner = () => {

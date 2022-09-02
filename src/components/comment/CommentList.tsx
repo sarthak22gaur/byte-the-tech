@@ -1,5 +1,7 @@
+// Package imports
 import Image from "next/image";
 
+// Utils imports
 import { trpc, inferQueryOutput } from "@/utils/trpc";
 
 type getALLCommentsQueryOutput = inferQueryOutput<"comment.getCommentsOnPost">;

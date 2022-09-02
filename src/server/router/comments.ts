@@ -1,15 +1,16 @@
-import { createRouter } from "./context";
-import { createProtectedRouter } from "./protected-router";
+// Package imports
 import { z } from "zod";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { TRPCError } from "@trpc/server";
+
+// Utils imports
+import { createRouter } from "@/server/router/context";
+import { createProtectedRouter } from "@/server/router/protected-router";
 
 export const commentRouter = createRouter().query("getCommentsOnPost", {
   input: z.object({
     blogId: z.string(),
   }),
   async resolve({ input, ctx }) {
-
     return await ctx.prisma.comment.findMany({
       where: {
         blogId: input.blogId,
@@ -26,10 +27,9 @@ export const commentRouter = createRouter().query("getCommentsOnPost", {
         blogId: true,
       },
       orderBy: {
-        createdAt: 'desc'
-      }
+        createdAt: "desc",
+      },
     });
-
   },
 });
 
@@ -44,7 +44,6 @@ export const commentRouterSecure = createProtectedRouter().mutation(
     }),
     async resolve({ input, ctx }) {
       try {
-        console.log(input)
         return await ctx.prisma.comment.create({
           data: {
             message: input.message,
@@ -54,7 +53,6 @@ export const commentRouterSecure = createProtectedRouter().mutation(
           },
         });
       } catch (e) {
-        console.log(e)
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "Something went wrong",

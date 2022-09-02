@@ -1,4 +1,7 @@
+// Component imports
 import { HomeCard } from "@/components/home/HomeCard";
+
+// Utils imports
 import { inferQueryOutput } from "@/utils/trpc";
 
 type getAllBlogQueryOutput = inferQueryOutput<"blogs.getAllBlogs">;

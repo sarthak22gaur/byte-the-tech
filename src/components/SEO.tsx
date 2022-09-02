@@ -1,5 +1,7 @@
+// Package Imports
 import Head from "next/head";
 
+// TODO: move constants to env
 const DOMAIN = "https://btt.skgr.xyz";
 const DEFAULT_OG_IMAGE =
   "https://storage.googleapis.com/cp_bucket_test/8KKpE4bnrgPr_BSjdodjBBS01657346517231.png";

@@ -1,12 +1,19 @@
+// Package imports
+import { useRouter } from "next/router";
 import superjson from "superjson";
 import { createSSGHelpers } from "@trpc/react/ssg";
+
+// Types imports/defs
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
-import { appRouter } from "@/server/router";
+// Components imports
 import Navbar from "@/components/Navbar";
 import Seo from "@/components/SEO";
 import { createContext } from "@/server/router/context";
 import Blog from "@/components/blog/Blog";
+
+// Utils imports
+import { appRouter } from "@/server/router";
 import { trpc } from "@/utils/trpc";
 
 export const getServerSideProps = async (
@@ -33,14 +40,16 @@ export const getServerSideProps = async (
   };
 };
 
-const slug = (
+const Slug = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
 ) => {
+  const router = useRouter();
+
   const { slug } = props;
   const blogQuery = trpc.useQuery(["blogs.getSingleBlog", { blogSlug: slug }]);
   const { data } = blogQuery;
   if (!data) {
-    return <div>404</div>;
+    return router.push("/");
   }
 
   return (
@@ -49,12 +58,8 @@ const slug = (
       <div className="w-full flex flex-col items-center">
         <Blog blog={data} />
       </div>
-
-      {/* <footer>
-        <SocialBanner />
-      </footer> */}
     </>
   );
 };
 
-export default slug;
+export default Slug;

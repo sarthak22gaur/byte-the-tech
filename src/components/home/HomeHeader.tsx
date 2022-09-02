@@ -1,6 +1,4 @@
-import Image from "next/image";
-import { useRef, useEffect } from "react";
-import Typed from "typed.js";
+// Package imports
 import Typewriter from "typewriter-effect";
 import GraphemeSplitter from "grapheme-splitter";
 
@@ -16,9 +14,6 @@ const optionsText = [
 const HomeHeader = () => {
   return (
     <header className="w-full py-12 flex justify-center items-center bg-secondary-light-bg dark:bg-secondary-dark-bg">
-      {/* <p className="absolute w-fit text-5xl sm:text-7xl lg:text-9xl text-white font-bold px-8">
-      <TypeAnimate options={[... optionsText]} />
-      </p> */}
       <div className="max-w-mw w-full flex flex-col justify-center items-center px-8 gap-8">
         <h1 className="w-fit text-center text-6xl sm:text-7xl lg:text-8xl font-bold px-8">
           Byte the Tech
@@ -26,17 +21,6 @@ const HomeHeader = () => {
         <h2 className="w-min text-4xl sm:text-5xl lg:text-6xl px-8 text-accent-light">
           <TypeAnimate options={[...optionsText]} />
         </h2>
-
-        {/* <div className="w-full border-2 max-w-2xl px-8">
-          <Image
-            layout="responsive"
-            width={600}
-            height={400}
-            className=""
-            src={"https://storage.googleapis.com/cp_bucket_test/homeSVG.svg"}
-            alt="Main image"
-          />
-        </div> */}
       </div>
     </header>
   );

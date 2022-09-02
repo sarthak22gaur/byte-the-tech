@@ -1,8 +1,8 @@
-import { MdLightMode } from "react-icons/md";
+// Package imports
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { signIn, signOut, useSession } from "next-auth/react";
-
+import { MdLightMode } from "react-icons/md";
 import { IoLogOutOutline, IoLogoGoogle } from "react-icons/io5";
 import { FaUserAstronaut } from "react-icons/fa";
 
@@ -21,7 +21,9 @@ const Navbar = () => {
     <nav className="w-full flex items-center justify-center top-0 z-10 bg-secondary-light-bg dark:bg-secondary-dark-bg">
       <div className={tw_Navbar}>
         <Link href="/">
-          <p className="cursor-pointer font-bold font-['dancing_script']">BTT</p>
+          <p className="cursor-pointer font-bold font-['dancing_script']">
+            BTT
+          </p>
         </Link>
         <ul className="flex">
           <li className={tw_NavbarLinks}>
@@ -44,9 +46,7 @@ const Navbar = () => {
                 className="flex items-center gap-2"
                 onClick={() => signIn()}
               >
-                <p className="font-light text-lg hidden sm:block">
-                  Login with
-                </p>
+                <p className="font-light text-lg hidden sm:block">Login with</p>
                 <IoLogoGoogle />
               </button>
             )}

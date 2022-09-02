@@ -1,7 +1,8 @@
+// Package imports
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import Countdown from "react-countdown";
-import Navbar from "@/components/Navbar";
+
 const ErrorPage = () => {
   const router = useRouter();
   const handleClick = () => {

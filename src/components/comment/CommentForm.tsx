@@ -1,8 +1,11 @@
-import { IoSend } from "react-icons/io5";
-
-import { trpc, inferMutationInput } from "@/utils/trpc";
+// Package imports
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { IoSend } from "react-icons/io5";
+
+// Utils imports
+import { trpc, inferMutationInput } from "@/utils/trpc";
+
 
 type createComment = inferMutationInput<"commentSecure.createCommentOnPost">;
 

@@ -1,5 +1,8 @@
+// Package imports
 import Link from "next/link";
 import { TiArrowRightOutline } from "react-icons/ti";
+
+// Type imports/defs
 import type { TypeBlog } from "@/types/contentful-types";
 
 export const HomeCard: React.FC<{

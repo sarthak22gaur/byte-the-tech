@@ -1,18 +1,19 @@
-import Image from "next/image";
+// Package imports
+import { createSSGHelpers } from "@trpc/react/ssg";
 import superjson from "superjson";
-import {
-  InferGetStaticPropsType,
-  InferGetServerSidePropsType,
-  GetServerSidePropsContext,
-} from "next";
 
+// Types imports/defs
+import { InferGetServerSidePropsType } from "next";
+
+// Components imports
 import Navbar from "@/components/Navbar";
-import SocialBanner from "@/components/SocialBanner";
 import HomeHeader from "@/components/home/HomeHeader";
 import HomeContent from "@/components/home/HomeContent";
-import { createContext } from "../server/router/context";
-import { appRouter } from "../server/router";
-import { createSSGHelpers } from "@trpc/react/ssg";
+
+// Utils imports
+import { createContext } from "@/server/router/context";
+import { appRouter } from "@/server/router";
+
 import { trpc } from "@/utils/trpc";
 
 export const getServerSideProps = async () => {

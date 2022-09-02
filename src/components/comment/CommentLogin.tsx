@@ -1,3 +1,4 @@
+// Package imports
 import { signIn } from "next-auth/react";
 import { IoLogoGoogle } from "react-icons/io5";
 

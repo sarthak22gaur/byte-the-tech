@@ -1,3 +1,4 @@
+// Package imports
 import Image from "next/image";
 
 const BlogHeader: React.FC<{

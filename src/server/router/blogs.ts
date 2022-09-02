@@ -1,13 +1,16 @@
+// Package imports
 import { z } from "zod";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { TRPCError } from "@trpc/server";
 
-import { createRouter } from "./context";
-import { createProtectedRouter } from "./protected-router";
+// Utils imports
+import { createRouter } from "@/server/router/context";
 import contentfulClient from "@/utils/contentful";
+import { seed, update } from "@/utils/db";
+// import { update } from "@/utils/update";
+
+// Types imports/defs
 import type { TypeBlogFields } from "@/types/contentful-types";
-import { seed } from "@/utils/seed";
-import { update } from "@/utils/update";
 
 export const blogRouter = createRouter()
   .query("getAllBlogs", {
@@ -30,6 +33,8 @@ export const blogRouter = createRouter()
             .trim()
             .toLowerCase()
             .replace(/[ ,]+/g, "-");
+
+          // TODO: add error handling for seed and update
 
           if (!blogFromDB) {
             await seed(curr.sys.id, curr.fields.title);
