@@ -28,12 +28,12 @@ export default function SEO({
       />
       <meta key="og_locale" property="og:locale" content="en_IE" />
       <meta key="og_site_name" property="og:site_name" content={siteName} />
-      <meta key="og_url" property="og:url" content={canonical ?? DOMAIN} />
+      <meta key="og_url" property="og:url" content={canonical} />
       <meta key="og_site_name" property="og:site_name" content={siteName} />
       <meta
         key="og_image"
         property="og:image"
-        content={ogImage ?? DEFAULT_OG_IMAGE}
+        content={ogImage}
       />
       <meta
         key="og_image:alt"
@@ -63,7 +63,7 @@ export default function SEO({
         content={description}
       />
 
-      <link rel="canonical" href={canonical ?? DOMAIN} />
+      <link rel="canonical" href={canonical} />
 
       <link
         rel="apple-touch-icon"

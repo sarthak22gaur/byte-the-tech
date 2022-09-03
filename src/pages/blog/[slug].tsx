@@ -57,6 +57,7 @@ const Slug = (
       <SEO
         title={data.fields.title}
         description={data.fields.blogDescription}
+        canonical={window.location.href}
         ogImage={"https:" + data.fields.heroImage.fields.file.url}
       />
       <Navbar />
