@@ -57,12 +57,12 @@ const Slug = (
       <SEO
         title={data.fields.title}
         description={data.fields.blogDescription}
-        canonical={window.location.href}
+        canonical={'https://btt.skgr.xyz/blog/' + slug}
         ogImage={"https:" + data.fields.heroImage.fields.file.url}
       />
       <Navbar />
       <div className="w-full flex flex-col items-center">
-        <Blog blog={data} />
+        <Blog blog={data} url={'https://btt.skgr.xyz/blog/' + slug} />
       </div>
     </>
   );

@@ -9,6 +9,7 @@ import { InferGetServerSidePropsType } from "next";
 import Navbar from "@/components/Navbar";
 import HomeHeader from "@/components/home/HomeHeader";
 import HomeContent from "@/components/home/HomeContent";
+import SEO from "@/components/SEO";
 
 // Utils imports
 import { createContext } from "@/server/router/context";
@@ -43,6 +44,7 @@ const Home = (
 
   return (
     <>
+      <SEO />
       <Navbar />
       <HomeHeader />
       <HomeContent allBlogs={allBlogs.data} />

@@ -3,18 +3,33 @@ import Head from "next/head";
 
 // TODO: move constants to env
 const DOMAIN = "https://btt.skgr.xyz";
+const DEFAULT_SITENAME = "Byte The Tech";
+const DEFAULT_TITLE = "Byte The Tech";
+const DEFAULT_DESCRIPTION = "This is the default description";
+const DEFAULT_OG_TYPE = "website";
+const DEFAULT_TWITTER_HANDLE = "@sarthakgaur22";
 const DEFAULT_OG_IMAGE =
   "https://storage.googleapis.com/cp_bucket_test/8KKpE4bnrgPr_BSjdodjBBS01657346517231.png";
 
-export default function SEO({
-  title = "Byte The Tech ",
-  description = "Some description",
-  siteName = "BTT",
-  canonical = DOMAIN,
-  ogImage = DEFAULT_OG_IMAGE,
-  ogType = "website",
-  twitterHandle = "@sarthakgaur22",
-}) {
+export const SEO: React.FC<{
+  title?: string;
+  description?: string;
+  // siteName?: string;
+  canonical?: string;
+  ogImage?: string;
+  ogType?: string;
+  twitterHandle?: string;
+}> = (props) => {
+  const title = props.title ? props.title : DEFAULT_TITLE;
+  const description = props.description ? props.description : DEFAULT_DESCRIPTION;
+  const siteName = DEFAULT_SITENAME;
+  const canonical = props.canonical ? props.canonical : DOMAIN;
+  const ogImage = props.ogImage ? props.ogImage : DEFAULT_OG_IMAGE;
+  const ogType = props.ogType ? props.ogType : DEFAULT_OG_TYPE;
+  const twitterHandle = props.twitterHandle
+    ? props.twitterHandle
+    : DEFAULT_TWITTER_HANDLE;
+
   return (
     <Head>
       <title key="title">{`${title} – ${siteName}`}</title>
@@ -30,11 +45,7 @@ export default function SEO({
       <meta key="og_site_name" property="og:site_name" content={siteName} />
       <meta key="og_url" property="og:url" content={canonical} />
       <meta key="og_site_name" property="og:site_name" content={siteName} />
-      <meta
-        key="og_image"
-        property="og:image"
-        content={ogImage}
-      />
+      <meta key="og_image" property="og:image" content={ogImage} />
       <meta
         key="og_image:alt"
         property="og:image:alt"
@@ -85,4 +96,6 @@ export default function SEO({
       <link rel="manifest" href="/site.webmanifest" />
     </Head>
   );
-}
+};
+
+export default SEO;

@@ -10,13 +10,14 @@ import {
 
 const SocialBanner: React.FC<{
   title: string;
+  url: string;
 }> = (props) => {
   // TODO: Make component for individual banner icon
   return (
     <nav className="flex justify-start">
       <div className="flex p-4 justify-evenly items-center gap-4 w-full h-min">
         <FacebookShareButton
-          url={window.location.href}
+          url={props.url}
           quote={props.title}
           // TODO: add dynamic hashtags
           // hashtag={"#nextshare"}
@@ -26,20 +27,20 @@ const SocialBanner: React.FC<{
           </div>
         </FacebookShareButton>
 
-        <TwitterShareButton url={window.location.href} title={props.title}>
+        <TwitterShareButton url={props.url} title={props.title}>
           <div className=" lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
             <FiTwitter size={24} />
           </div>
         </TwitterShareButton>
 
-        <LinkedinShareButton url={window.location.href}>
+        <LinkedinShareButton url={props.url}>
           <div className=" lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
             <FiLinkedin size={24} />
           </div>
         </LinkedinShareButton>
 
         <WhatsappShareButton
-          url={window.location.href}
+          url={props.url}
           title={props.title}
           separator=":: "
         >

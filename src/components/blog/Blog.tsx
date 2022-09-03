@@ -10,6 +10,7 @@ import type { TypeBlog } from "@/types/contentful-types";
 
 const Blog: React.FC<{
   blog: TypeBlog;
+  url: string
 }> = (props) => {
   return (
     <main className="w-full grid px-2 sm:px-0 grid-flow-row grid-cols-[minmax(0,_1fr)_minmax(0,_1fr)_300px] gap-8 sm:max-w-[90vw] 2xl:max-w-mw">
@@ -29,11 +30,12 @@ const Blog: React.FC<{
                   .file.url
               }
               title={props.blog.fields.title}
+              url={props.url}
             />
           </div>
           <BlogMarkdown blogContent={props.blog.fields.blogContent} />
           <div className="block pt-4 lg:hidden">
-            <SocialBanner title={props.blog.fields.title} />
+            <SocialBanner title={props.blog.fields.title} url={props.url}/>
           </div>
 
           <Comments blogId={props.blog.sys.id} />
@@ -48,6 +50,7 @@ const Blog: React.FC<{
                 .url
             }
             title={props.blog.fields.title}
+            url={props.url}
           />
         </div>
       </div>

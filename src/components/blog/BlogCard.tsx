@@ -7,7 +7,8 @@ import SocialBanner from "@/components/SocialBanner";
 export const BlogCard: React.FC<{
   authorName: string;
   fileUrl: string;
-  title: string
+  title: string;
+  url: string
 }> = (props) => {
   // TODO: Add createdAt and updatedAt data.
   // TODO: Add sharing options for social media
@@ -34,7 +35,7 @@ export const BlogCard: React.FC<{
           </div>
         </div>
         <div className="hidden lg:block">
-        <SocialBanner title={props.title}/>
+        <SocialBanner title={props.title} url={props.url}/>
         </div>
         
       </div>
