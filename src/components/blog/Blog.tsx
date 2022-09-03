@@ -3,7 +3,7 @@ import BlogHeader from "@/components/blog/BlogHeader";
 import BlogMarkdown from "@/components/blog/BlogMarkdown";
 import BlogCard from "@/components/blog/BlogCard";
 import Comments from "@/components/comment/Comments";
-
+import SocialBanner from "@/components/SocialBanner";
 
 // Type imports
 import type { TypeBlog } from "@/types/contentful-types";
@@ -22,19 +22,24 @@ const Blog: React.FC<{
             createdAt={props.blog.sys.createdAt}
           />
           <div className="block lg:hidden">
-          <BlogCard
-            authorName={props.blog.fields.blogAuthor.fields.authorName}
-            fileUrl={
-              props.blog.fields.blogAuthor.fields.authorProfleImage.fields.file
-                .url
-            }
-          />
+            <BlogCard
+              authorName={props.blog.fields.blogAuthor.fields.authorName}
+              fileUrl={
+                props.blog.fields.blogAuthor.fields.authorProfleImage.fields
+                  .file.url
+              }
+              title={props.blog.fields.title}
+            />
           </div>
           <BlogMarkdown blogContent={props.blog.fields.blogContent} />
+          <div className="block pt-4 lg:hidden">
+            <SocialBanner title={props.blog.fields.title} />
+          </div>
+
           <Comments blogId={props.blog.sys.id} />
         </div>
       </div>
-      <div className="hidden lg:block lg:col-span-1 lg:col-start-3 box-border border-l-2 border-secondary-light-bg dark:border-secondary-dark-bg ">
+      <div className="hidden lg:block lg:col-span-1 lg:col-start-3 box-border border-l-2 justify-between border-secondary-light-bg dark:border-secondary-dark-bg ">
         <div className="relative inline-block w-full h-full">
           <BlogCard
             authorName={props.blog.fields.blogAuthor.fields.authorName}
@@ -42,6 +47,7 @@ const Blog: React.FC<{
               props.blog.fields.blogAuthor.fields.authorProfleImage.fields.file
                 .url
             }
+            title={props.blog.fields.title}
           />
         </div>
       </div>

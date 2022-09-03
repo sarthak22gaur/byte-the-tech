@@ -6,7 +6,7 @@ const DOMAIN = "https://btt.skgr.xyz";
 const DEFAULT_OG_IMAGE =
   "https://storage.googleapis.com/cp_bucket_test/8KKpE4bnrgPr_BSjdodjBBS01657346517231.png";
 
-export default function Seo({
+export default function SEO({
   title = "Byte The Tech ",
   description = "Some description",
   siteName = "BTT",

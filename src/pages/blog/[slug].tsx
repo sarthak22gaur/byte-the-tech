@@ -8,7 +8,7 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 
 // Components imports
 import Navbar from "@/components/Navbar";
-import Seo from "@/components/SEO";
+import SEO from "@/components/SEO";
 import { createContext } from "@/server/router/context";
 import Blog from "@/components/blog/Blog";
 
@@ -54,6 +54,11 @@ const Slug = (
 
   return (
     <>
+      <SEO
+        title={data.fields.title}
+        description={data.fields.blogDescription}
+        ogImage={"https:" + data.fields.heroImage.fields.file.url}
+      />
       <Navbar />
       <div className="w-full flex flex-col items-center">
         <Blog blog={data} />

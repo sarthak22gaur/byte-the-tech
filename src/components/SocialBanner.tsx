@@ -1,29 +1,55 @@
 // Package imports
-import Link from "next/link";
-import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { FiLinkedin, FiFacebook, FiTwitter } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
+import {
+  FacebookShareButton,
+  WhatsappShareButton,
+  LinkedinShareButton,
+  TwitterShareButton,
+} from "next-share";
 
-const SocialBanner = () => {
+const SocialBanner: React.FC<{
+  title: string;
+}> = (props) => {
   // TODO: Make component for individual banner icon
   return (
-    <nav className="hidden fixed w-full md:w-fit bottom-0 md:right-0 py-8 px-8 z-10">
-      <div className="flex justify-center md:grid gap-4">
-        <Link href="https://github.com/sarthak22gaur">
-          <div className="cursor-pointer lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
-            <FiGithub size={24} />
+    <nav className="flex justify-start">
+      <div className="flex p-4 justify-evenly items-center gap-4 w-full h-min">
+        <FacebookShareButton
+          url={window.location.href}
+          quote={props.title}
+          // TODO: add dynamic hashtags
+          // hashtag={"#nextshare"}
+        >
+          <div className=" lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
+            <FiFacebook size={24} />
           </div>
-        </Link>
-        <Link href="https://www.linkedin.com/in/sarthak-gaur-22041998/">
-          <div className="cursor-pointer lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
+        </FacebookShareButton>
+
+        <TwitterShareButton url={window.location.href} title={props.title}>
+          <div className=" lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
+            <FiTwitter size={24} />
+          </div>
+        </TwitterShareButton>
+
+        <LinkedinShareButton url={window.location.href}>
+          <div className=" lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
             <FiLinkedin size={24} />
           </div>
-        </Link>
-        <Link href="https://www.linkedin.com/in/sarthak-gaur-22041998/">
-          <div className="cursor-pointer lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
-            <FiMail size={24} />
+        </LinkedinShareButton>
+
+        <WhatsappShareButton
+          url={window.location.href}
+          title={props.title}
+          separator=":: "
+        >
+          <div className=" lg:hover:text-accent-light lg:hover:-translate-y-1 lg:transition-all">
+            <FaWhatsapp size={24} />
           </div>
-        </Link>
+        </WhatsappShareButton>
       </div>
     </nav>
   );
 };
+
 export default SocialBanner;
