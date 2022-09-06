@@ -13,9 +13,9 @@ const Blog: React.FC<{
   url: string
 }> = (props) => {
   return (
-    <main className="w-full grid px-2 sm:px-0 grid-flow-row grid-cols-[minmax(0,_1fr)_minmax(0,_1fr)_300px] gap-8 sm:max-w-[90vw] 2xl:max-w-mw">
-      <div className="col-span-3 w-full col-start-1 lg:col-span-2 lg:col-start-1 flex justify-center lg:justify-start">
-        <div className="w-fit">
+    <main className="w-full grid px-2 sm:px-0 grid-flow-row grid-cols-3 lg:grid-cols-[minmax(0,_1fr)_minmax(0,_1fr)_300px] gap-8 sm:max-w-[90vw] 2xl:max-w-mw">
+      <div className="col-span-3 w-full col-start-1 lg:col-span-2 lg:col-start-1 flex justify-center items-center lg:justify-start">
+        <div className="w-full sm:w-fit">
           <BlogHeader
             blogTitle={props.blog.fields.title}
             fileUrl={props.blog.fields.heroImage.fields.file.url}

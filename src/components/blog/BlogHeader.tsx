@@ -20,7 +20,7 @@ const BlogHeader: React.FC<{
       <div className="text-3xl sm:text-4xl py-4 font-black dark:text-secondary-dark text-primary-dark">
         {props.blogTitle}
       </div>
-      <div className="text-lg items-center flex gap-4 pb-4">
+      <div className="text-sm sm:text-base lg:text-lg items-center flex gap-4 pb-4">
         {props.blogTags.map((tag, index) => {
           return (
             <div
