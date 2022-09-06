@@ -25,6 +25,7 @@ export const serverSchema = z.object({
   CONTENTFUL_PERSONAL_ACCESS_TOKEN: z.string(),
   CONTENTFUL_ENVIRONMENT: z.string(),
   CMS_HOOK_API_SECRET: z.string(),
+  ANALYZE_BUNDLE: z.string(),
 });
 
 /**

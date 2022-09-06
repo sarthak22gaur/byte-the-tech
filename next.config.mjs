@@ -1,4 +1,5 @@
 import { env } from "./src/env/server.mjs";
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
 /**
  * Don't be scared of the generics here.
@@ -11,11 +12,24 @@ import { env } from "./src/env/server.mjs";
 function defineNextConfig(config) {
   return config;
 }
+const BundleAnalyzer = withBundleAnalyzer({
+  enabled: env.ANALYZE_BUNDLE === "true",
+});
 
-export default defineNextConfig({
+let nextConfig = defineNextConfig({
   images: {
-    domains: ['storage.googleapis.com', 'lh3.googleusercontent.com', 'images.ctfassets.net'],
+    domains: [
+      "storage.googleapis.com",
+      "lh3.googleusercontent.com",
+      "images.ctfassets.net",
+    ],
   },
   reactStrictMode: true,
   swcMinify: true,
 });
+
+if (env.ANALYZE_BUNDLE === "true") {
+  nextConfig = BundleAnalyzer(nextConfig);
+}
+
+export default nextConfig;

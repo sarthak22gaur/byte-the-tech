@@ -7,7 +7,7 @@ const BlogMarkdown: React.FC<{
 }> = (props) => {
   return (
       <section className="flex flex-col items-center justify-center border-b-2 p-4">
-        <article className="prose prose-base sm:prose-lg md:prose-xl 2xl:prose-2xl dark:prose-invert">
+        <article className="prose prose-base sm:prose-lg 2xl:prose-xl dark:prose-invert">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {props.blogContent}
           </ReactMarkdown>
