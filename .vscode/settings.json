@@ -1,2 +1,6 @@
 {
+    "editor.fontLigatures": true,
+    "editor.fontFamily": "'FiraCode Nerd Font'",
+    "editor.tabSize": 2,
+    "editor.lineNumbers": "relative"
 }

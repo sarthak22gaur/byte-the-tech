@@ -12,7 +12,7 @@ export const HomeCard: React.FC<{
   const slug = title.trim().toLowerCase().replace(/[ ,]+/g, "-");
   return (
     <Link href={`/blog/${slug}`}>
-      <div className="flex flex-col group gap-4 justify-between cursor-pointer sm:hover:scale-105 sm:hover:bg-light-hover sm:dark:hover:bg-dark-hover transition-all p-4 shadow-md rounded">
+      <div className="max-w-[500px] flex flex-col group gap-4 justify-between cursor-pointer sm:hover:scale-105 sm:hover:bg-light-hover sm:dark:hover:bg-dark-hover transition-all p-4 shadow-md rounded">
         <div>
           <div className="text-2xl pb-4 font-bold dark:text-secondary-dark text-secondary-light group-hover:text-accent-light transition-colors">
             {props.blog.fields.title}
@@ -21,7 +21,7 @@ export const HomeCard: React.FC<{
             {props.blog.fields.blogDescription}
           </div>
           {props.blog.fields.blogTags && (
-            <div className="text-lg flex gap-2 pb-4">
+            <div className="text-lg flex flex-wrap gap-2 pb-4">
               {props.blog.fields.blogTags.map((tag, index) => {
                 return (
                   <div

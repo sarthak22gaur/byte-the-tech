@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { MdLightMode } from "react-icons/md";
+import { MdLightMode, MdDarkMode } from "react-icons/md";
 import { IoLogOutOutline, IoLogoGoogle } from "react-icons/io5";
 import { FaUserAstronaut } from "react-icons/fa";
 
@@ -18,7 +18,7 @@ const Navbar = () => {
 
   const { theme, setTheme } = useTheme();
   return (
-    <nav className="w-full flex items-center justify-center top-0 z-10 bg-secondary-light-bg dark:bg-secondary-dark-bg">
+    <nav className="w-full flex items-center justify-center border-b-[1px] top-0 z-10 bg-secondary-light-bg dark:bg-secondary-dark-bg">
       <div className={tw_Navbar}>
         <Link href="/">
           <p className="cursor-pointer font-bold font-['dancing_script']">
@@ -30,7 +30,7 @@ const Navbar = () => {
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              <MdLightMode />
+              {theme === 'dark' ? <MdLightMode /> : <MdDarkMode />}
             </button>
           </li>
           <li className={tw_NavbarLinks}>

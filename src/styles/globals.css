@@ -2,40 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 @layer base {
-
   html {
     font-family: 'Fira Sans Condensed', sans-serif;
   }
   body {
     @apply h-screen;
-    @apply bg-primary-light-bg dark:bg-primary-dark-bg
-}
-    h1 {
-      @apply text-2xl;
-    }
-    h2 {
-      @apply text-xl;
-    }
-    h3 {
-      @apply text-lg;
-    }
-    a {
-    
-    }
+    @apply bg-primary-light-bg dark:bg-primary-dark-bg;
   }
-
-  @layer components {
-    #__next {
-        @apply h-full;
-    }
-    /* html,
-    body {
-        @apply h-full;
-        @apply bg-primary-light-bg dark:bg-primary-dark-bg
-    } */
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  a {
+  }
 }
-  
 
+@layer components {
+  #__next {
+    @apply h-full;
+  }
+}
