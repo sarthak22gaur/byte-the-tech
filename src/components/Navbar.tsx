@@ -33,13 +33,13 @@ const Navbar = () => {
               {theme === 'dark' ? <MdLightMode /> : <MdDarkMode />}
             </button>
           </li>
-          <li className={tw_NavbarLinks}>
+          {/* <li className={tw_NavbarLinks}>
             <Link href="/">
               <i>
                 <FaUserAstronaut />
               </i>
             </Link>
-          </li>
+          </li> */}
           <li className={tw_NavbarLinks}>
             {status === "unauthenticated" && (
               <button
