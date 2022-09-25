@@ -12,8 +12,8 @@ export const HomeCard: React.FC<{
   const slug = title.trim().toLowerCase().replace(/[ ,]+/g, '-')
   return (
     <Link href={`/blog/${slug}`}>
-      <div className="max-w-[500px] sm:hover:border-r-2 h-full sm:hover:border-b-2 hover:border-dashed border-black dark:border-white transition-all">
-        <div className='border-2 p-4 h-full flex flex-col group gap-4 justify-between cursor-pointer sm:hover:-translate-x-2 border-black dark:border-white sm:hover:-translate-y-2 transition-all sm:hover:bg-light-hover sm:dark:hover:bg-dark-hover'>
+      <div className="max-w-[500px] h-full border-black dark:border-white  m-2 border-r-2 border-b-2 sm:border-r-0 sm:border-b-0 sm:hover:border-r-2 sm:hover:border-b-2 border-dashed transition-all">
+        <div className='border-2 p-4 h-full flex flex-col group gap-4 justify-between cursor-pointer -translate-x-2 -translate-y-2 sm:translate-x-0 sm:translate-y-0 sm:hover:-translate-x-2 border-black dark:border-white sm:hover:-translate-y-2 transition-all sm:hover:bg-light-hover sm:dark:hover:bg-dark-hover'>
           <div>
             <div className="text-2xl pb-4 font-bold dark:text-secondary-dark text-secondary-light group-hover:text-accent-light transition-colors">
               {props.blog.fields.title}
