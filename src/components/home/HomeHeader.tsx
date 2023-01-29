@@ -9,6 +9,10 @@ const optionsText = [
   "Next.js",
   "SQL",
   "TailwindCSS",
+  "tRPC",
+  "Zod",
+  "SuperJSON",
+  "Prisma"
 ];
 
 const HomeHeader = () => {
