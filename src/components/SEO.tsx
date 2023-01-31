@@ -5,11 +5,11 @@ import Head from "next/head";
 const DOMAIN = "https://btt.skgr.xyz";
 const DEFAULT_SITENAME = "Byte The Tech";
 const DEFAULT_TITLE = "Byte The Tech";
-const DEFAULT_DESCRIPTION = "This is the default description";
+const DEFAULT_DESCRIPTION = "A tech blog focusing on end to end typesafety with Typescript";
 const DEFAULT_OG_TYPE = "website";
-const DEFAULT_TWITTER_HANDLE = "@sarthakgaur22";
+const DEFAULT_TWITTER_HANDLE = "@sarthak22gaur";
 const DEFAULT_OG_IMAGE =
-  "https://storage.googleapis.com/cp_bucket_test/8KKpE4bnrgPr_BSjdodjBBS01657346517231.png";
+  "https://storage.googleapis.com/cp_bucket_test/btt_showcase_dark.png";
 
 export const SEO: React.FC<{
   title?: string;
